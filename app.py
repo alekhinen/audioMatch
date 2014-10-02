@@ -8,3 +8,10 @@ parser.add_argument('file2', help='include a second file')
 args = parser.parse_args()
 
 compareFiles( args.file1, args.file2 )
+
+
+# Shell script so that we can do this: dan -f z01.wav -f z02.wav
+# Validation of user inputs
+# Parse the inputted files (fourier transform -> ???)
+# Comparison
+# Output
