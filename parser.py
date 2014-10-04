@@ -1,5 +1,5 @@
-import matplotlib.pyplot as plt
-import matplotlib.mlab as mlab
+# import matplotlib.pyplot as plt
+# import matplotlib.mlab as mlab
 from scipy.ndimage.filters import maximum_filter
 import scipy.io.wavfile as wavfile
 from scipy.fftpack import fft
@@ -67,8 +67,8 @@ def parseFiles(f1, f2):
 
   d = len(c) / 2
 
-  plt.plot(abs(c[:(d-1)]),'r')
-  plt.show()
+  # plt.plot(abs(c[:(d-1)]),'r')
+  # plt.show()
 
 
   #d-2
