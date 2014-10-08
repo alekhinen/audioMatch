@@ -3,6 +3,9 @@ import argparse
 from comparator import parseAndCompare
 from validator import validateFiles
 
+# MultiStore
+# allows a flag to be called multiple times in a single command and
+# store all values in an array
 class MultiStore( argparse.Action ):
   def __call__( self, parser, namespace, values, option_strings=None ):
     #Need None here incase `argparse.SUPPRESS` was supplied for `dest`
@@ -16,9 +19,16 @@ class MultiStore( argparse.Action ):
     except ValueError:
       dest.append(values)
 
+# Initialize the CLI parser
 parser = argparse.ArgumentParser()
 parser.add_argument('-f', nargs='*', action=MultiStore, help='include a file')
-args = parser.parse_args()
+args = False
+try:
+  args = parser.parse_args()
+except:
+  print 'ERROR: incorrect format'
 
-if ( validateFiles( args.f )):
-  parseAndCompare( args.f )
+# Validate, parse, and compare the files from the CLI
+if ( args ):
+  if ( validateFiles( args.f )):
+    parseAndCompare( args.f )

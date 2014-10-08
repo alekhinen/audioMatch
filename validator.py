@@ -8,22 +8,30 @@ def validateFiles( files ):
     f1 = files[0]
     f2 = files[1]
   else:
-    return false
+    return False
 
-  # make sure file exists
-  result = os.path.isfile(f1) and os.path.isfile(f2)
+  # check if files exist
+  if ( not (os.path.isfile(f1) and os.path.isfile(f2)) ):
+    msg = 'ERROR: One (or both) of the files supplied does not exist!\n'
+    msg += 'EXIT STATUS: 1\n'
+    sys.stderr.write( msg )
+    return False
 
-  if ( not result ):
-    sys.stderr.write('ERROR: One (or both) of the files supplied does not exist!\n')
-    return result
+  # get the headers of the files
+  f1Header = sndhdr.what(f1)
+  f2Header = sndhdr.what(f2)
 
-  # make sure file is in .wav format
-  result = result and sndhdr.what(f1)[0] == 'wav'
-  result = result and sndhdr.what(f2)[0] == 'wav'
-
-  if ( not result ):
-    sys.stderr.write('ERROR: One (or both) of the files supplied is not in WAV format\n')
-    return result
-
-  return result
-
+  # check if the headers exist
+  if ( f1Header == None or f1Header == None ):
+    msg = 'ERROR: One (or both) of the files supplied is not in WAV format\n'
+    msg += 'EXIT STATUS: 2\n'
+    sys.stderr.write( msg )
+    return False
+  # check if the files are in WAV format
+  elif ( f1Header[0] != 'wav' or f2Header[0] != 'wav' ):
+    msg = 'ERROR: One (or both) of the files supplied is not in WAV format\n'
+    msg += 'EXIT STATUS: 1\n'
+    sys.stderr.write( msg )
+    return False
+  else:
+    return True
