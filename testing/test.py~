@@ -1,0 +1,5 @@
+import ../app
+
+def test_valid_inputs():
+	assert dan -f z01.wav == "include a second file":
+	assert dan == "include a file"
