@@ -3,7 +3,13 @@ import sndhdr
 import sys
 
 # Check if both files exist and are in .wav format.
-def validateFiles(f1, f2):
+def validateFiles( files ):
+  if ( len(files) == 2 ):
+    f1 = files[0]
+    f2 = files[1]
+  else:
+    return false
+
   # make sure file exists
   result = os.path.isfile(f1) and os.path.isfile(f2)
 

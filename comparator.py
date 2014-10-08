@@ -2,8 +2,8 @@ from parser import parseFiles
 import math
 
 
-def parseAndCompare(f1, f2):
-  f1, f2 = parseFiles(f1, f2)
+def parseAndCompare( files ):
+  f1, f2 = parseFiles(files[0], files[1])
   return compareFiles(f1, f2)
 
 
