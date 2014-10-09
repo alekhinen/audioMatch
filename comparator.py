@@ -12,7 +12,7 @@ def parseAndCompare( files ):
 
 
 def compareFiles(f1, f2, f1_name, f2_name):
-  result = 'MATCH ' + f1_name + ' ' + f2_name + '\n'
+  result = 'MATCH ' + f1_name + ' ' + f2_name
   # Set minimum amplitude difference we care about
   THRESHOLD = 500000
 
@@ -22,8 +22,8 @@ def compareFiles(f1, f2, f1_name, f2_name):
       abs_f2 = math.fabs(f2[i].real)
 
       if ( math.fabs(abs_f1 - abs_f2) > THRESHOLD):
-        result = 'NO MATCH\n'
+        return 'NO MATCH'
   else:
-    result = 'NO MATCH\n'
+    return 'NO MATCH'
 
-  print result
+  return result

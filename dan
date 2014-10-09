@@ -2,6 +2,7 @@
 import argparse
 from comparator import parseAndCompare
 from validator import validateFiles
+import sys
 
 # MultiStore
 # allows a flag to be called multiple times in a single command and
@@ -20,7 +21,7 @@ class MultiStore( argparse.Action ):
       dest.append(values)
 
 # Initialize the CLI parser
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(usage=False)
 parser.add_argument('-f', nargs='*', action=MultiStore, help='include a file')
 args = False
 try:
@@ -29,6 +30,10 @@ except:
   print 'ERROR: incorrect format'
 
 # Validate, parse, and compare the files from the CLI
-if ( args ):
-  if ( validateFiles( args.f )):
-    parseAndCompare( args.f )
+if ( args and args.f ):
+  validationPkg = validateFiles( args.f )
+  if ( validationPkg[0] ):
+    print parseAndCompare( args.f )
+  else:
+    sys.stderr.write( validationPkg[1] )
+    sys.exit( validationPkg[2] )
