@@ -16,6 +16,8 @@
 *.exe
 *.o
 *.so
+*.pyc
+*.py~
 
 # Packages #
 ############
