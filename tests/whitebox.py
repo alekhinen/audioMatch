@@ -47,10 +47,10 @@ def testComparator():
   #     - returns NO MATCH
 
   files = ['../audio/bad0616.wav', '../audio/z06.wav']
-  assert_equal( comparator.parseAndCompare( files ), 'NO MATCH\n' )
+  assert_equal( comparator.parseAndCompare( files ), 'NO MATCH' )
 
   files = ['../audio/z01.wav', '../audio/z02.wav']
-  assert_equal( comparator.parseAndCompare( files ), 'MATCH z01.wav z02.wav\n' )
+  assert_equal( comparator.parseAndCompare( files ), 'MATCH z01.wav z02.wav' )
 
   files = ['../audio/z01.wav', '../audio/z06.wav']
-  assert_equal( comparator.parseAndCompare( files ), 'NO MATCH\n' )
+  assert_equal( comparator.parseAndCompare( files ), 'NO MATCH' )
