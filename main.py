@@ -10,14 +10,17 @@
 #     The other.
 
 #Imports
+from parser.py import parse
+
 
 # Initialize Operation Struct:
 OCore = {
     'U_Dir':"..",
     'A_Dir':".",
-    'Mode':0
+    'Mode1':0
+    'Mode2':0
     'Threshold':100
-    'FSize':0.5
+    'FSize':2.5
     'FlatR':0.8
     'DBase':{}
     'Log':[]}
@@ -26,11 +29,12 @@ OCore = {
 OCore['DBase'] = {}
 
 # Main function, acts based upon OCore['Mode']
-#parse(OCore)
-if OCore['Mode'] == 0:
-	#addAll(OCore)
-	#checkAll(OCore)
-	#printLog(OCore)
+OCore = parse(OCore)
+if OCore['Mode1'] == 0 and OCore['Mode2'] == 0:
+	#OCore = validateAll(OCore)
+        #OCore = addAll(OCore)
+	#OCore = checkAll(OCore)
+	#OCore = printLog(OCore)
 	return None
 #elif OCore['Mode'] == 1:
 else:
