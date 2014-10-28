@@ -1,23 +1,12 @@
-from scipy.ndimage.filters import maximum_filter
-import scipy.io.wavfile as wavfile
-from scipy.fftpack import fft
+#AudioMG: MATCH GOOD!
+# Header ::: TODO :::
+# Parser
 
-def parseFiles(f1, f2):
-  samp_rate1, data1 = wavfile.read( f1 )
-  samp_rate2, data2 = wavfile.read( f2 )
+import argparse
+from comparator import parseAndCompare
+from validator import validateFiles
+import sys as SYS
 
-  # file 1 data, left-track
-  a = data1.T[0]
-  # normalize on [-1,1)
-  b = [ (e / 2**8)*2-1 for e in a ]
-  # FFT (amplitude (decibels) over frequency (Hz))
-  c = fft(b)
-
-  # file 2 data, left-track
-  a2 = data2.T[0]
-  # normalize on [-1,1)
-  b2 = [ (e / 2**8)*2-1 for e in a2 ]
-  # FFT (amplitude (decibels) over frequency (Hz))
-  c2 = fft(b2)
-
-  return (c, c2)
+# Parses the CMD Line to set the OCore to the appropriate values
+def parse( core ):
+  
