@@ -10,7 +10,12 @@
 #     The other.
 
 #Imports
-from parser import parse
+from parser    import parse
+from validator import validate
+from adder     import add
+from processor import process
+from checker   import check
+from logger    import log
 
 
 # Initialize Operation Struct:
@@ -27,18 +32,26 @@ OCore = {
     'Log':[]
 }
 
-# Initialize Data-Base Struct:
-OCore['DBase'] = {}
-
 # Main function, acts based upon OCore['Mode']
-OCore = parse(OCore)
-if OCore['Mode1'] == 0 and OCore['Mode2'] == 0:
-	#OCore = validateAll(OCore)
-        #OCore = addAll(OCore)
-	#OCore = checkAll(OCore)
-	#OCore = printLog(OCore)
-	# return None
-  print 'Something is gonna happen'
-#elif OCore['Mode'] == 1:
-else:
-	print "ERROR: Invalid Mode"
+OCore, output = parse(OCore)
+log(output)
+OCore, output = validate(OCore)
+log(output)
+OCore, output = add(OCore)
+log(output)
+OCore, output = process(OCore)
+log(output)
+OCore, output = check(OCore)
+log(output)
+
+
+# if OCore['Mode1'] == 0 and OCore['Mode2'] == 0:
+# 	#OCore = validateAll(OCore)
+#         #OCore = addAll(OCore)
+# 	#OCore = checkAll(OCore)
+# 	#OCore = printLog(OCore)
+# 	# return None
+#   print 'Something is gonna happen'
+# #elif OCore['Mode'] == 1:
+# else:
+# 	print "ERROR: Invalid Mode"

@@ -7,8 +7,7 @@ import argparse
 # from validator import validateFiles
 import sys as SYS
 
-# checks a Tag and returns what the corresponding OCore
-#should be set to.
+# checks a Tag and returns what the corresponding OCore should be set to.
 def checkTag( tag ):
   if tag == '-f':
     return 0
