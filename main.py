@@ -19,6 +19,7 @@ OCore = {
     'A_Dir':".",
     'Mode1':0
     'Mode2':0
+    'Stage':0
     'Threshold':100
     'FSize':2.5
     'FlatR':0.8
