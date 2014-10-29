@@ -15,6 +15,8 @@ def validate( OCore ):
   isValid = True
   outputText = ''
 
+  # TODO: check if supplied is directory or file.
+
   # check if the directories actually exist
   isValid = isValid and os.path.exists( OCore['U_Dir'] )
   isValid = isValid and os.path.exists( OCore['A_Dir'] )
