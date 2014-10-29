@@ -10,21 +10,22 @@
 #     The other.
 
 #Imports
-from parser.py import parse
+from parser import parse
 
 
 # Initialize Operation Struct:
 OCore = {
     'U_Dir':"..",
     'A_Dir':".",
-    'Mode1':0
-    'Mode2':0
-    'Stage':0
-    'Threshold':100
-    'FSize':2.5
-    'FlatR':0.8
-    'DBase':{}
-    'Log':[]}
+    'Mode1': 0,
+    'Mode2': 0,
+    'Stage': 0,
+    'Threshold':100,
+    'FSize':2.5,
+    'FlatR':0.8,
+    'DBase':{},
+    'Log':[]
+}
 
 # Initialize Data-Base Struct:
 OCore['DBase'] = {}
@@ -36,7 +37,8 @@ if OCore['Mode1'] == 0 and OCore['Mode2'] == 0:
         #OCore = addAll(OCore)
 	#OCore = checkAll(OCore)
 	#OCore = printLog(OCore)
-	return None
+	# return None
+  print 'Something is gonna happen'
 #elif OCore['Mode'] == 1:
 else:
 	print "ERROR: Invalid Mode"
