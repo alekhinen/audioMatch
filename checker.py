@@ -1,6 +1,6 @@
 #AudioMG: MATCH GOOD!
 
-#The Checker 
+#The Checker
 # checks files against the database. and compares them to matches
 
 #Imports
@@ -15,15 +15,16 @@ def check ( core ) :
   #Sets the Stage to Ad mode
   core['Stage'] = 1
   filesAd = [ i for i in listdir(core['A_Dir']) if isfile(i) ]
-  # generates the list of user files to be added 
-  for i in filesAd subCheck(i, core)
+  # generates the list of user files to be added
+  for i in filesAd:
+    subCheck(i, core)
   return core, ""
-  
+
 #Preforms individual checks.
 def subCheck ( fieName, core ):
   copyFile(fileName)
   convertFile(fileName)
   compare(fileName, core, process(fileName, core))
-  
+
 
 

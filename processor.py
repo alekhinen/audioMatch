@@ -31,16 +31,17 @@ def process( fileName, core ):
     subList = []
     while (i < len(b) and i < end):
       subList.append(b[i])
-      i++
+      i += 1
     primList.append(subList)
     start = end
     end = end + fragSize
-  
+
   result = []
-  result.append(fft(e)) for e in primList
-  return result 	
- 
-  
+  for e in primList:
+    result.append(fft(e))
+  return result
+
+
 
 
 

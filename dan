@@ -43,7 +43,8 @@ log(output)
 OCore, output = check(OCore)
 log(output)
 
-print i + "\n" for i in OCore['Log']
+for i in OCore['Log']:
+  print i + '\n'
 
 # if OCore['Mode1'] == 0 and OCore['Mode2'] == 0:
 # 	#OCore = validateAll(OCore)

@@ -17,8 +17,8 @@ def convertFile ( fileName, core ):
   elif core['Stage'] == 1:
     mdir = core['A_Dir']
     tdir = "./tmp/User/"
-  else
+  else:
     print "ERROR: bad stage value in Copy and Convert"
   subprocess.call(["lame", "--decode", mdir + fileName, tdir + fileName])
 
-  
+

@@ -12,15 +12,23 @@ from sndhdr import what
 # converts them and then adds them to the Database.
 def add ( core ) :
   # Generates the list of files in the user directory
-  filesUser = [ i for i in listdir(core['U_Dir']) if isfile(i) ]
+  filesUser = []
+  for i in listdir(core['U_Dir']):
+    print '-------------------'
+    print i, '\n'
+    filesUser.append( i )
+
   # Sets the stage to User Mode.
   core['Stage'] = 0
-  # Adds the files via SubAdd 
-  subAdd(i, core) for i in filesUser 
-  return core, ""
+
+  # Adds the files via SubAdd
+  for i in filesUser:
+    subAdd(i, core)
+
+  return core, ''
 
 #Preforms individual additions.
-def subAdd ( fieName, core ):
+def subAdd ( fileName, core ):
   copyFile( fileName, core )
   if what("./tmp/User/" + fileName) == "mp3":
     convertFile( fileName, core )
