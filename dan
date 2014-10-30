@@ -10,6 +10,8 @@
 #     The other.
 
 #Imports
+import sys
+
 from parser    import parse
 from validator import validate
 from adder     import add
@@ -32,7 +34,7 @@ OCore = {
 }
 
 # Main function, acts based upon OCore['Mode']
-OCore, output = parse(OCore)
+OCore, output = parse(OCore, sys.argv)
 log(output)
 OCore, output = validate(OCore)
 log(output)

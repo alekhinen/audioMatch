@@ -23,8 +23,8 @@ def validate( OCore ):
 
   # if directories exist, validate all the files in each directories
   if ( isValid ):
-    isValid = isValid and validateDirFiles( OCore['U_Dir'] )
-    isValid = isValid and validateDirFiles( OCore['A_Dir'] )
+    isValid = isValid and validateDir( OCore['U_Dir'] )
+    isValid = isValid and validateDir( OCore['A_Dir'] )
 
   # if directories or files are not valid, update outputText
   if ( not isValid ):
@@ -33,10 +33,12 @@ def validate( OCore ):
   return OCore, outputText
 
 
-def validateDirFiles( dirPath ):
-  result = True
+def validateDir( dirPath ):
+  result = False
 
   for subdir, dirs, files in os.walk( dirPath ):
+    if ( files ):
+      result = True
     for f in files:
       f = os.path.join( dirPath, f )
       result = result and validateFile( f )
