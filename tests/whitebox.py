@@ -1,5 +1,4 @@
 from nose.tools import *
-import sys
 from assignment4 import parser
 from assignment4 import validator
 from assignment4 import logger
@@ -70,12 +69,25 @@ class TestValidator():
 
   # -------------------------------------------------------
   # attributes
+  OCore = None
 
   # -------------------------------------------------------
   # setUp()
   def setUp( self ):
     print 'setting up'
-    # TODO: ...
+
+    self.OCore = {
+      'U_Dir':"..",
+      'A_Dir':".",
+      'Mode1': 0,
+      'Mode2': 0,
+      'Stage': 0,
+      'Threshold':100,
+      'FSize':2.5,
+      'FlatR':0.8,
+      'DBase':{},
+      'Log':[]
+    }
 
   # -------------------------------------------------------
   # testValidateFile()
@@ -107,6 +119,13 @@ class TestValidator():
     # Test 4
     d = '/Something/Stupid'
     assert_equal( validator.validateDir( d ), False )
+
+  # -------------------------------------------------------
+  # testValidate()
+  def testValidate( self ):
+    # TODO: ...
+    print 'will take care of later'
+
 
 
 

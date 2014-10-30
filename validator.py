@@ -13,7 +13,7 @@ import sndhdr
 # validate()
 def validate( OCore ):
   isValid = True
-  outputText = ''
+  errMsg = ''
 
   # TODO: check if supplied is directory or file.
 
@@ -21,16 +21,19 @@ def validate( OCore ):
   isValid = isValid and os.path.exists( OCore['U_Dir'] )
   isValid = isValid and os.path.exists( OCore['A_Dir'] )
 
+  if ( not isValid ):
+    errMsg = 'ERROR: Supplied pathname(s) does not exist.'
+
   # if directories exist, validate all the files in each directories
   if ( isValid ):
     isValid = isValid and validateDir( OCore['U_Dir'] )
     isValid = isValid and validateDir( OCore['A_Dir'] )
 
-  # if directories or files are not valid, update outputText
+  # if directories or files are not valid, update errMsg
   if ( not isValid ):
-    outputText = 'ERROR: Some files are not valid.'
+    errMsg = 'ERROR: Supplied file(s) are not valid.'
 
-  return OCore, outputText
+  return OCore, errMsg
 
 
 def validateDir( dirPath ):
