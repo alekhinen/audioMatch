@@ -6,6 +6,7 @@ from os import listdir
 from os.path import isfile, join
 from processor import process
 from copyconvert import copyFile, convertFile
+from sndhdr import what
 
 # Adds all the files in the user directory to the tmp directory
 # converts them and then adds them to the Database.
@@ -15,13 +16,14 @@ def add ( core ) :
   # Sets the stage to User Mode.
   core['Stage'] = 0
   # Adds the files via SubAdd 
-  for i in filesUser subAdd(i, core)
-  return core
+  subAdd(i, core) for i in filesUser 
+  return core, ""
 
 #Preforms individual additions.
 def subAdd ( fieName, core ):
   copyFile( fileName, core )
-  convertFile( fileName, core )
+  if what("./tmp/User/" + fileName) == "mp3":
+    convertFile( fileName, core )
   data = process( fileName, core )
   core['DBase'].append( data )
 

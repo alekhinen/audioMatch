@@ -1,6 +1,6 @@
 #AudioMG: MATCH GOOD!
 # Header ::: TODO :::
-# Parser
+# Parser module, adapts the OCore according to the CMD line
 
 # -----------------------------------------------------------------------------
 # imports

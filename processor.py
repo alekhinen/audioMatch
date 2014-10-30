@@ -1,9 +1,11 @@
 #AudioMG: MATCH GOOD!
 
-#Processor Module:
+#Processor Module: Processes files into fragmented FFT'd lists of numbers
+
 
 import math
 from scipy.fftpack import fft
+import scipy.io.wavfile as wavfile
 
 
 # Extracts data and sampling rate from file
@@ -34,8 +36,9 @@ def process( fileName, core ):
     start = end
     end = end + fragSize
   
- return for e in primList fft(e)
-	
+  result = []
+  result.append(fft(e)) for e in primList
+  return result 	
  
   
 

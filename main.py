@@ -12,9 +12,8 @@
 #Imports
 from parser    import parse
 from validator import validate
-# from adder     import add
-# from processor import process
-# from checker   import check
+from adder     import add
+from checker   import check
 from logger    import log
 
 
@@ -37,13 +36,12 @@ OCore, output = parse(OCore)
 log(output)
 OCore, output = validate(OCore)
 log(output)
-# OCore, output = add(OCore)
-# log(output)
-# OCore, output = process(OCore)
-# log(output)
-# OCore, output = check(OCore)
-# log(output)
+OCore, output = add(OCore)
+log(output)
+OCore, output = check(OCore)
+log(output)
 
+print i + "\n" for i in OCore['Log']
 
 # if OCore['Mode1'] == 0 and OCore['Mode2'] == 0:
 # 	#OCore = validateAll(OCore)
