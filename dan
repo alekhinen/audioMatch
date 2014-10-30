@@ -18,6 +18,7 @@ from adder     import add
 from checker   import check
 from logger    import log
 
+from os import rmdirs
 
 # Initialize Operation Struct:
 OCore = {
@@ -43,6 +44,9 @@ log(output)
 OCore, output = check(OCore)
 log(output)
 
+#TODO (add try except catching error nonsense)
+rmdirs("./tmp/User/")
+rmdirs("./tmp/Ads/")
 for i in OCore['Log']:
   print i + '\n'
 
