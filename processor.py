@@ -9,9 +9,9 @@ from scipy.fftpack import fft
 # Extracts data and sampling rate from file
 def process( fileName, core ):
   if ( core['Stage'] == 0 ):
-    dirr = ".tmp/User/"
+    dirr = "./tmp/User/"
   else:
-    dirr = ".tmp/Ads/"
+    dirr = "./tmp/Ads/"
 
   srate, data = wavefile.read( dirr + fileName )
 
