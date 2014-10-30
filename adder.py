@@ -11,13 +11,11 @@ from os import makedirs
 # Adds all the files in the user directory to the tmp directory
 # converts them and then adds them to the Database.
 def add ( core ) :
-  mkdirs("./tmp/User/")
-  mkdirs("./tmp/Ads/")
+  makedirs("./tmp/User/")
+  makedirs("./tmp/Ads/")
   # Generates the list of files in the user directory
   filesUser = []
   for i in listdir(core['U_Dir']):
-    print '-------------------'
-    print i, '\n'
     filesUser.append( i )
 
   # Sets the stage to User Mode.

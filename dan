@@ -18,7 +18,7 @@ from adder     import add
 from checker   import check
 from logger    import log
 
-from os import rmdirs
+from os import removedirs
 
 # Initialize Operation Struct:
 OCore = {
@@ -30,7 +30,7 @@ OCore = {
     'Threshold':100,
     'FSize':2.5,
     'FlatR':0.8,
-    'DBase':{},
+    'DBase':[],
     'Log':[]
 }
 
@@ -45,8 +45,8 @@ OCore, output = check(OCore)
 log(output)
 
 #TODO (add try except catching error nonsense)
-rmdirs("./tmp/User/")
-rmdirs("./tmp/Ads/")
+removedirs("./tmp/User/")
+removedirs("./tmp/Ads/")
 for i in OCore['Log']:
   print i + '\n'
 

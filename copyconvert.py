@@ -4,11 +4,16 @@
 
 import shutil as UTIL
 import subprocess
+import os.path
+
 def copyFile ( fileName, core ):
   if core['Stage'] == 0:
-    UTIL.copy2( fileName, "./tmp/User/" )
+    fullFile = os.path.join( core['U_Dir'], fileName )
+    UTIL.copy2( fullFile, "./tmp/User/" + fileName )
+
   elif core['Stage'] == 1:
-    UTIL.copy2( fileName, "./tmp/Ads/" )
+    fullFile = os.path.join( core['A_Dir'], fileName )
+    UTIL.copy2( fullFile, "./tmp/Ads/" + fileName )
 
 def convertFile ( fileName, core ):
   if core['Stage'] == 0:

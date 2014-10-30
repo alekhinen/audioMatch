@@ -15,12 +15,12 @@ def process( fileName, core ):
   else:
     dirr = "./tmp/Ads/"
 
-  srate, data = wavefile.read( dirr + fileName )
+  srate, data = wavfile.read( dirr + fileName )
 
   a = data.T[0]
   b = [(e / 256)*2-1 for e in a ]
   #Setting up chunking process
-  fragSize = srate*core['Fsize']
+  fragSize = srate*core['FSize']
   start = 0
   end = fragSize
   primList = []
