@@ -17,4 +17,4 @@ import sys
 def log( output ):
   if output:
     print output
-    sys.exit(1)
+    #sys.exit(1)

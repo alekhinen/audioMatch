@@ -17,8 +17,8 @@ def process( fileName, core ):
 
   srate, data = wavfile.read( dirr + fileName )
 
-  a = data.T[0]
-  b = [(e / 256)*2-1 for e in a ]
+  a = data.T
+  b = [ (e / 256)*2-1 for e in a ]
   #Setting up chunking process
   fragSize = srate*core['FSize']
   start = 0

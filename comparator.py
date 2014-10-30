@@ -25,17 +25,19 @@ def subCompare( fileName, core, data, fileNameU, index ):
       else:           # Ends when 5bits dont match in an area without 10
         fCount = fCount + 1   #matching bits in a row
       if eCount >= 5: # change here to add or reduce err.bits allowed
-        return #No Match
+        return "test"#No Match
       elif fCount >= 10: #change here to alter err.reset sensitivity
         eCount = 0   
   #For Loop Completion Indicates thorough match
-  core['Log'].append("MATCH " + fileName + fileNameU)    
+  return "MATCH " + fileName + fileNameU 
   
 #Compares the Given data fro given fileName against all data in the database.
 def compare( fileName, core, data ):
+  result = []
   j = 0
   for i in listdir("./tmp/User/"): 
-    subCompare(fileName, core, data, i, j )
+    result.append( subCompare(fileName, core, data, i, j ) )
     j = j + 1
+  return result
 
 

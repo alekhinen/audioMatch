@@ -14,17 +14,18 @@ from comparator import compare
 def check ( core ) :
   #Sets the Stage to Ad mode
   core['Stage'] = 1
+  result = []
   filesAd = [ i for i in listdir(core['A_Dir']) if isfile(i) ]
   # generates the list of user files to be added
   for i in filesAd:
-    subCheck(i, core)
-  return core, ""
+   result.append(subCheck(i, core))
+  return core, "", result
 
 #Preforms individual checks.
-def subCheck ( fieName, core ):
+def subCheck ( fileName, core ):
   copyFile(fileName)
   convertFile(fileName)
-  compare(fileName, core, process(fileName, core))
+  return compare(fileName, core, process(fileName, core)) 
 
 
 

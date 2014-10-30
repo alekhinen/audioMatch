@@ -11,14 +11,13 @@
 
 #Imports
 import sys
+import shutil
 
 from parser    import parse
 from validator import validate
 from adder     import add
 from checker   import check
 from logger    import log
-
-from os import removedirs
 
 # Initialize Operation Struct:
 OCore = {
@@ -40,13 +39,18 @@ log(output)
 OCore, output = validate(OCore)
 log(output)
 OCore, output = add(OCore)
-log(output)
-OCore, output = check(OCore)
-log(output)
+# log(output)
+print 'this should work.'
+# TODO: something is broken within check
+OCore, output, result = check(OCore)
+print "this should check everything"
+# log(output)
+for i in result:
+  print i
 
 #TODO (add try except catching error nonsense)
-removedirs("./tmp/User/")
-removedirs("./tmp/Ads/")
+shutil.rmtree("./tmp/User/")
+shutil.rmtree("./tmp/Ads/")
 for i in OCore['Log']:
   print i + '\n'
 
