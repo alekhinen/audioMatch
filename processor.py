@@ -11,6 +11,10 @@ import scipy.io.wavfile as wavfile
 from scipy.fftpack import fft
 from sndhdr        import what
 
+# COMMENTS TO DEVELOPER
+# TODO: normalization and fft'ing the track take way too long
+# see line 51 and line 63 onward for where things could be improved.
+
 
 # -----------------------------------------------------------------------------
 # process()
@@ -43,6 +47,7 @@ def process( filepath ):
   b = []
   i = 0
   aLength = len(a)
+  # either hit 800 thousand iterations or go through entire data set.
   while (i < aLength) and (i < 800000):
     b.append( (a[i] / 256)*2-1 )
     i += 1

@@ -8,6 +8,7 @@ from os import listdir
 from os.path import isfile, join
 from processor import process
 from copyconvert import copyFile, convertFile
+import math
 
 # -----------------------------------------------------------------------------
 # check()
@@ -28,8 +29,23 @@ def check( core ):
 # @ad
 # @description:
 def compare( user, ad ):
-  if ( user['fileExtension'] == ad['fileExtension'] ):
-    return 'MATCH: ' + user['filename'] + ad['filename'] + '\n'
-  else:
-    return ''
+  extensionMatch = user['fileExtension'] == ad['fileExtension']
+  threshold = 100
+  userFftLength = len(user['fft'])
+  adFftLength = len(ad['fft'])
+
+  if ( extensionMatch ):
+    if userFftLength == adFftLength:
+      i = 0
+      j = 0
+      while i < userFftLength:
+        j = 0
+        fragLen = len(user['fft'][i])
+        while j < fragLen:
+          userAmplitude = user['fft'][i][j]
+          adAmplitude = ad['fft'][i][j]
+          if math.fabs(userAmplitude - adAmplitude) > threshold:
+            return ''
+      return 'MATCH: ' + user['filename'] + ' ' + ad['filename'] + '\n'
+  return ''
 
