@@ -2,8 +2,7 @@ from nose.tools import *
 from assignment4 import parser
 from assignment4 import validator
 from assignment4 import logger
-
-
+from os import listdir
 # -----------------------------------------------------------------------------
 # tests the parser
 class TestParser():
@@ -98,11 +97,16 @@ class TestValidator():
     # Test 2
     f = ''
     assert_equal( validator.validateFile( f ), False )
-    # Test 3
+    # Test 3 TODO if below is acceptable remove this and test 1.
     f = '../test_assets/D1/janacek.mp3'
     assert_equal( validator.validateFile( f ), True )
 
-    # TODO: more testing
+    # Tests TODO is this acceptable?
+    f = '../test_assets/D1/'
+    for fileName in listdir( f ):
+      f2 = join( f, fileName)
+      assert_equal(validator.validateFile( f ), True )
+
 
   # -------------------------------------------------------
   # testValidateDir()
@@ -182,10 +186,35 @@ class TestValidator():
     self.OCore['Mode2'] = 1
 
     assert_equal( validator.validate( self.OCore ), (self.OCore, msg))
+    
+class testProcessor():
+      
+  result = None
 
+  def setUp( self ):
+    print "setting up"
 
-
-
+    self.result = {
+      'filename': "",
+      'fileExtension': "wav",
+      'samplingRate': 0,
+      'channels': 0,
+      'bitsPerSamp': 0,
+      'fft': [],
+    }
+      
+    def testProcess( self ):
+      address = '../test_assets/D1/bad0616.wav'
+      self.result['filename'] = 'bad0616'
+      self.result['fileExtension'] = 'wav'
+      self.result['samplingRate'] = 44000
+      self.result['channels'] = 1
+      self.result['bitsPerSamp'] = 16
+      
+      assert_equal( processor.process( address )['filename'],
+      self.result['filename'])
+  
+      assert_equal( processor.process( address )['channels'], 1 )
 
 
 

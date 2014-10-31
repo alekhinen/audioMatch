@@ -27,7 +27,7 @@ def add( core ):
   if ( core['Mode1'] == 0 ):
     f = result['U_Dir']
     result['database']['userRecs'].append( subAdd(f, 0) )
-
+  
   # directory mode
   if ( core['Mode1'] == 1 ):
     # converts/copies over user recordings to a tmp folder.
@@ -67,7 +67,7 @@ def subAdd( filepath, stage ):
   # if in user recordings stage, process the file in the user's tmp dir
   if stage == 0:
     tmpF = join( './tmp/userRecs/', basename(filepath) )
-  else:
+  elif stage == 1:
     tmpF = join( './tmp/adRecs/', basename(filepath) )
   return process( tmpF )
 
