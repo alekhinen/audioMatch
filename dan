@@ -1,66 +1,56 @@
 #!/usr/bin/env python
+
 # AudioMG: MATCH GOOD!
-# Created by:
-# Nick Alekhine
-# Michael Chadbourne
-# John Meenagh
-# Charles Perrone
+# @authors: Nick Alekhine,
+#           Michael Chadbourne,
+#           John Meenagh,
+#           Charles Perrone
+# @description: Designed to identify files in one directory with matching
+#               segments in the other.
+# @version: 30-10-2014
 
-# Designed to identify files in one directory with matching segments in
-#     The other.
-
-#Imports
+# -----------------------------------------------------------------------------
+# imports
 import sys
 import shutil
-
 from parser    import parse
 from validator import validate
 from adder     import add
 from checker   import check
 from logger    import log
 
+# -----------------------------------------------------------------------------
 # Initialize Operation Struct:
 OCore = {
-    'U_Dir':"..",
-    'A_Dir':".",
-    'Mode1': 0,
-    'Mode2': 0,
-    'Stage': 0,
-    'Threshold':100,
-    'FSize':2.5,
-    'FlatR':0.8,
-    'DBase':[],
-    'Log':[]
+  'U_Dir':"..",
+  'A_Dir':".",
+  'Mode1': 0,
+  'Mode2': 0,
+  'Stage': 0,
+  'Threshold':100,
+  'FSize':2.5,
+  'FlatR':0.8,
+  'DBase':[],
+  'Log':[]
 }
 
+# -----------------------------------------------------------------------------
 # Main function, acts based upon OCore['Mode']
 OCore, output = parse(OCore, sys.argv)
 log(output)
 OCore, output = validate(OCore)
 log(output)
 OCore, output = add(OCore)
-# log(output)
-print 'this should work.'
-# TODO: something is broken within check
+log(output)
 OCore, output, result = check(OCore)
-print "this should check everything"
-# log(output)
-for i in result:
-  print i
+log(output)
 
-#TODO (add try except catching error nonsense)
-shutil.rmtree("./tmp/User/")
-shutil.rmtree("./tmp/Ads/")
-for i in OCore['Log']:
-  print i + '\n'
+# TODO: unnecessary
+# for i in result:
+#   print i
 
-# if OCore['Mode1'] == 0 and OCore['Mode2'] == 0:
-# 	#OCore = validateAll(OCore)
-#         #OCore = addAll(OCore)
-# 	#OCore = checkAll(OCore)
-# 	#OCore = printLog(OCore)
-# 	# return None
-#   print 'Something is gonna happen'
-# #elif OCore['Mode'] == 1:
-# else:
-# 	print "ERROR: Invalid Mode"
+# for i in OCore['Log']:
+#   print i + '\n'
+
+# clean up temporary directory
+shutil.rmtree('./tmp/')
