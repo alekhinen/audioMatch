@@ -46,20 +46,27 @@ def add( core ):
 
 # -----------------------------------------------------------------------------
 # subAdd()
-# @description: convert supplied file, fft that file
+# @description: copies over file, converts that file, fft's that file
 # @return: fft'd audio data
 def subAdd( fileName, core ):
-  copyFile( fileName, core )
   # if we are in user stage
   if ( core['Stage'] == 0 ):
+    # if file is mp3, convert it
     if ( what('./tmp/User/' + fileName) == 'mp3' ):
       convertFile( fileName, core )
+    # else, just copy it over
+    else:
+      copyFile( fileName, core )
     data = process( fileName, core )
     return data
   # else we are in ad stage
   else:
+    # if file is mp3, convert it
     if ( what('./tmp/Ads/' + fileName) == 'mp3' ):
       convertFile( fileName, core )
+    # else, just copy it over
+    else:
+      copyFile( fileName, core )
     data = process( fileName, core )
     return data
 
