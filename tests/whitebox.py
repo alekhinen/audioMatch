@@ -123,12 +123,65 @@ class TestValidator():
   # -------------------------------------------------------
   # testValidate()
   def testValidate( self ):
-    # TODO: ...
-    print 'will take care of later'
+    msg = 'ERROR: flagged a directory that was not a directory OR flagged a file that was not a file'
 
+    # Valid Cores -------------------------------------------------------------
+    self.OCore['U_Dir'] = '../test_assets/D1'
+    self.OCore['A_Dir'] = '../test_assets/D2'
+    self.OCore['Mode1'] = 1
+    self.OCore['Mode2'] = 1
 
+    assert_equal( validator.validate( self.OCore ), (self.OCore, ''))
 
+    self.OCore['U_Dir'] = '../test_assets/D1/bad0616.wav'
+    self.OCore['A_Dir'] = '../test_assets/D2'
+    self.OCore['Mode1'] = 0
+    self.OCore['Mode2'] = 1
 
+    assert_equal( validator.validate( self.OCore ), (self.OCore, ''))
+
+    self.OCore['U_Dir'] = '../test_assets/D1'
+    self.OCore['A_Dir'] = '../test_assets/D2/janacek2.wav'
+    self.OCore['Mode1'] = 1
+    self.OCore['Mode2'] = 0
+
+    assert_equal( validator.validate( self.OCore ), (self.OCore, ''))
+
+    self.OCore['U_Dir'] = '../test_assets/D1/bad0616.wav'
+    self.OCore['A_Dir'] = '../test_assets/D2/janacek2.wav'
+    self.OCore['Mode1'] = 0
+    self.OCore['Mode2'] = 0
+
+    assert_equal( validator.validate( self.OCore ), (self.OCore, ''))
+
+    # Invalid Cores -----------------------------------------------------------
+    self.OCore['U_Dir'] = '../test_assets/D1'
+    self.OCore['A_Dir'] = '../test_assets/D2'
+    self.OCore['Mode1'] = 0
+    self.OCore['Mode2'] = 1
+
+    assert_equal( validator.validate( self.OCore ), (self.OCore, msg))
+
+    self.OCore['U_Dir'] = '../test_assets/D1/bad0616.wav'
+    self.OCore['A_Dir'] = '../test_assets/D2'
+    self.OCore['Mode1'] = 1
+    self.OCore['Mode2'] = 1
+
+    assert_equal( validator.validate( self.OCore ), (self.OCore, msg))
+
+    self.OCore['U_Dir'] = '../test_assets/D1'
+    self.OCore['A_Dir'] = '../test_assets/D2/janacek2.wav'
+    self.OCore['Mode1'] = 0
+    self.OCore['Mode2'] = 1
+
+    assert_equal( validator.validate( self.OCore ), (self.OCore, msg))
+
+    self.OCore['U_Dir'] = '../test_assets/D1/bad0616.wav'
+    self.OCore['A_Dir'] = '../test_assets/D2/janacek2.wav'
+    self.OCore['Mode1'] = 1
+    self.OCore['Mode2'] = 1
+
+    assert_equal( validator.validate( self.OCore ), (self.OCore, msg))
 
 
 

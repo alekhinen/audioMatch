@@ -16,6 +16,23 @@ def validate( OCore ):
   errMsg = ''
 
   # TODO: check if supplied is directory or file.
+  if OCore['Mode1'] == 1:
+    if OCore['Mode2'] == 1:
+      isValid = os.path.isdir(OCore['U_Dir']) and os.path.isdir(OCore['A_Dir'])
+    elif OCore['Mode2'] == 0:
+      isValid = os.path.isdir(OCore['U_Dir']) and os.path.isfile(OCore['A_Dir'])
+  elif OCore['Mode1'] == 0:
+    if OCore['Mode2'] == 1:
+      isValid = os.path.isfile(OCore['U_Dir']) and os.path.isdir(OCore['A_Dir'])
+    elif OCore['Mode2'] == 0:
+      isValid = os.path.isfile(OCore['U_Dir']) and os.path.isfile(OCore['A_Dir'])
+  else:
+    isValid = False
+
+  if ( not isValid ):
+    errMsg = 'ERROR: flagged a directory that was not a directory OR flagged a file that was not a file'
+
+  return OCore, errMsg
 
   # check if the directories actually exist
   isValid = isValid and os.path.exists( OCore['U_Dir'] )
@@ -23,6 +40,8 @@ def validate( OCore ):
 
   if ( not isValid ):
     errMsg = 'ERROR: Supplied pathname(s) does not exist.'
+
+  return OCore, errMsg
 
   # if directories exist, validate all the files in each directories
   if ( isValid ):
