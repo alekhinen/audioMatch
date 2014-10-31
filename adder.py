@@ -18,15 +18,10 @@ from os          import makedirs
 #               converts them and then adds them to the Database.
 def add( core ):
   result = core
+
   # generate directories
   makedirs('./tmp/User/')
   makedirs('./tmp/Ads/')
-
-  # TODO: unnecessary
-  # # generates the list of files in the user directory
-  # filesUser = []
-  # for i in listdir(result['U_Dir']):
-  #   filesUser.append( i )
 
   # sets the stage to user mode.
   result['Stage'] = 0
