@@ -41,6 +41,8 @@ OCore = {
 # Main function, acts based upon OCore['Mode']
 OCore, output = parse(OCore, sys.argv)
 # log(output)
+print 'users dir --- ', OCore['U_Dir']
+print 'ads dir ----- ', OCore['A_Dir']
 print output
 OCore, output = validate(OCore)
 # log(output)

@@ -42,8 +42,8 @@ def parse( core, sysArgs ):
     result['Mode1'] = checkTag(tag1)
     result['Mode2'] = checkTag(tag2)
     # update the directories
-    result['A_Dir'] = dir1
-    result['U_Dir'] = dir2
+    result['U_Dir'] = dir1
+    result['A_Dir'] = dir2
 
   # return the modified core object and output text.
   return result, outputText
