@@ -30,11 +30,6 @@ def convertFile ( fileName, core ):
   else:
     print "ERROR: bad stage value in Copy and Convert"
 
-  # get the base name (os.path.basename returns FILENAME.FILEFORMAT)
-  baseFileName = os.path.basename( fileName ).split('.')[0]
-  # print baseFileName
-  # fullFileName = tdir + baseFileName + '.wav'
-  fullFileName = tdir + fileName
-  subprocess.call(["lame", "--decode", mdir + fileName, fullFileName])
-
-
+  currentFile = os.path.join( mdir, fileName )
+  futureFile = tdir + fileName
+  subprocess.call(['./lame', '--decode', currentFile, futureFile])
