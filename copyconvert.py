@@ -1,12 +1,17 @@
 #AudioMG: MATCH GOOD!
+# @module: Copy And Convert
+# @description: Copies and converts files over to tmp/
 
-#Copy and Convert Module
-
+# -----------------------------------------------------------------------------
+# imports
+import os.path
 import shutil as UTIL
 import subprocess
 import os.path
 
-def copyFile ( fileName, core ):
+# -----------------------------------------------------------------------------
+# copyFile()
+def copyFile( fileName, core ):
   if core['Stage'] == 0:
     fullFile = os.path.join( core['U_Dir'], fileName )
     UTIL.copy2( fullFile, "./tmp/User/" + fileName )
@@ -21,9 +26,14 @@ def convertFile ( fileName, core ):
     tdir = "./tmp/User/"
   elif core['Stage'] == 1:
     mdir = core['A_Dir']
-    tdir = "./tmp/User/"
+    tdir = "./tmp/Ads/"
   else:
     print "ERROR: bad stage value in Copy and Convert"
-  subprocess.call(["lame", "--decode", mdir + fileName, tdir + fileName])
+
+  # get the base name (os.path.basename returns FILENAME.FILEFORMAT)
+  baseFileName = os.path.basename( fileName ).split('.')[0]
+  print baseFileName
+  fullFileName = tdir + baseFileName + '.wav'
+  subprocess.call(["lame", "--decode", mdir + fileName, fullFileName])
 
 
