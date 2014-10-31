@@ -29,25 +29,25 @@ def check( core ):
 # @ad
 # @description:
 def compare( user, ad ):
-  extensionMatch = user['fileExtension'] == ad['fileExtension']
+  # extensionMatch = user['fileExtension'] == ad['fileExtension']
   threshold = 1000
   userFftLength = len(user['fft'])
   adFftLength = len(ad['fft'])
 
-  if ( extensionMatch ):
-    if userFftLength == adFftLength:
-      i = 0
+  # if ( extensionMatch ):
+  if userFftLength == adFftLength:
+    i = 0
+    j = 0
+    while i < userFftLength:
       j = 0
-      while i < userFftLength:
-        j = 0
-        fragLen = len(user['fft'][i])
-        while j < fragLen:
-          userAmplitude = user['fft'][i][j].real
-          adAmplitude = ad['fft'][i][j].real
-          if math.fabs(userAmplitude - adAmplitude) > threshold:
-            return ''
-          j += 1
-        i += 1
-      return 'MATCH: ' + user['filename'] + ' ' + ad['filename'] + '\n'
+      fragLen = len(user['fft'][i])
+      while j < fragLen:
+        userAmplitude = user['fft'][i][j].real
+        adAmplitude = ad['fft'][i][j].real
+        if math.fabs(userAmplitude - adAmplitude) > threshold:
+          return ''
+        j += 1
+      i += 1
+    return 'MATCH: ' + user['filename'] + ' ' + ad['filename'] + '\n'
   return ''
 
