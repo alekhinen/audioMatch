@@ -60,9 +60,10 @@ def process( filepath ):
 
   # separating the data into chunks of consistent audio length
   i = 0
-  while (end < len(b) + fragSize):
+  bLength = len(b)
+  while (end < bLength + fragSize):
     subList = []
-    while (i < len(b) and i < end):
+    while (i < bLength and i < end):
       subList.append(b[i])
       i += 1
     primList.append(subList)
