@@ -46,6 +46,8 @@ def compare( user, ad ):
           adAmplitude = ad['fft'][i][j].real
           if math.fabs(userAmplitude - adAmplitude) > threshold:
             return ''
+          j += 1
+        i += 1
       return 'MATCH: ' + user['filename'] + ' ' + ad['filename'] + '\n'
   return ''
 
