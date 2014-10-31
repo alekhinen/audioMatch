@@ -42,8 +42,8 @@ def compare( user, ad ):
         j = 0
         fragLen = len(user['fft'][i])
         while j < fragLen:
-          userAmplitude = user['fft'][i][j]
-          adAmplitude = ad['fft'][i][j]
+          userAmplitude = user['fft'][i][j].real
+          adAmplitude = ad['fft'][i][j].real
           if math.fabs(userAmplitude - adAmplitude) > threshold:
             return ''
       return 'MATCH: ' + user['filename'] + ' ' + ad['filename'] + '\n'
