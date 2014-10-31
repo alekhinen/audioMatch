@@ -35,6 +35,9 @@ def add( core ):
   for i in listdir(result['U_Dir']):
     result['database']['user'].append( subAdd(i, result) )
 
+  # sets the stage to advertisement mode.
+  result['Stage'] = 1
+
   # adds fft data from tmp/Ads audio files via subAdd()
   for i in listdir(result['A_Dir']):
     result['database']['advertisements'].append( subAdd(i, result) )
@@ -47,9 +50,17 @@ def add( core ):
 # @return: fft'd audio data
 def subAdd( fileName, core ):
   copyFile( fileName, core )
-  if ( what('./tmp/User/' + fileName) == 'mp3' ):
-    convertFile( fileName, core )
-  data = process( fileName, core )
-  return data
+  # if we are in user stage
+  if ( core['Stage'] == 0 ):
+    if ( what('./tmp/User/' + fileName) == 'mp3' ):
+      convertFile( fileName, core )
+    data = process( fileName, core )
+    return data
+  # else we are in ad stage
+  else:
+    if ( what('./tmp/Ads/' + fileName) == 'mp3' ):
+      convertFile( fileName, core )
+    data = process( fileName, core )
+    return data
 
 
