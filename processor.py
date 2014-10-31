@@ -1,44 +1,58 @@
-#AudioMG: MATCH GOOD!
+# @module: processor
+# @description: processes files into fragmented FFT'd lists of numbers.
+#               collects metadata.
+# @version: 31-10-2014
 
-#Processor Module: Processes files into fragmented FFT'd lists of numbers
-
-
+# -----------------------------------------------------------------------------
+# imports
 import math
-from scipy.fftpack import fft
-from sndhdr import what
+import os.path
 import scipy.io.wavfile as wavfile
+from scipy.fftpack import fft
+from sndhdr        import what
 
 
-# Extracts data and sampling rate from file
-def process( fileName, core ):
-  if ( core['Stage'] == 0 ):
-    dirr = './tmp/User/'
-  else:
-    dirr = './tmp/Ads/'
+# -----------------------------------------------------------------------------
+# process()
+# @description: collects metadata and FFT's audio file
+# @returns: dictionary with FFT and metadata
+def process( filepath ):
+  # initialize result
+  result = {
+    'filename': os.path.basename(filepath),
+    'samplingRate': 0,
+    'channels': 0.
+    'bitsPerSamp': 0,
+    'fft': []
+  }
 
-  srate, data = wavfile.read( dirr + fileName )
+  samplingRate, data = wavfile.read( filepath )
+  # collect metadata
   metadata = what( dirr + fileName )
   channels = metadata[2]
+  bitsPerSamp = metadata[4]
 
+  # get audio track data
   if ( channels > 1 ):
     a = data.T[0]
   else:
     a = data.T
-  # normalizing left-audio track over [-1, 1)
-  # b = [ (e / 256)*2-1 for e in a ]
+
+  # normalize audio track over [-1, 1)
   b = []
   i = 0
   aLength = len(a)
-  while (i < len(a)) and (i < 1000000):
+  while (i < aLength) and (i < 1000000):
     b.append( (a[i] / 256)*2-1 )
     i += 1
+
   #Setting up chunking process
-  fragSize = srate*core['FSize']
-  start = 0
-  end = fragSize
+  fragSize = samplingRate * 2.5
+  start    = 0
+  end      = fragSize
   primList = []
 
-  #Seperating the data into chunks of consistent audio length
+  # separating the data into chunks of consistent audio length
   i = 0
   while (end < len(b) + fragSize):
     subList = []
@@ -49,9 +63,14 @@ def process( fileName, core ):
     start = end
     end = end + fragSize
 
-  result = []
   for e in primList:
-    result.append(fft(e))
+    result['fft'].append(fft(e))
+
+  # update result
+  result['samplingRate'] = samplingRate
+  result['channels'] = channels
+  result['bitsPerSamp'] = bitsPerSamp
+
   return result
 
 

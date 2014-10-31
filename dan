@@ -31,8 +31,8 @@ OCore = {
   'FSize':2.5,
   'FlatR':0.8,
   'database': {
-    'user': [],
-    'advertisements': []
+    'userRecs': [],
+    'adRecs': []
   },
   'Log':[]
 }

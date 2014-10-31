@@ -11,25 +11,25 @@ import os.path
 
 # -----------------------------------------------------------------------------
 # copyFile()
-def copyFile( fileName, core ):
-  if core['Stage'] == 0:
-    fullFile = os.path.join( core['U_Dir'], fileName )
-    UTIL.copy2( fullFile, "./tmp/User/" + fileName )
-
-  elif core['Stage'] == 1:
-    fullFile = os.path.join( core['A_Dir'], fileName )
-    UTIL.copy2( fullFile, "./tmp/Ads/" + fileName )
-
-def convertFile ( fileName, core ):
-  if core['Stage'] == 0:
-    mdir = core['U_Dir']
-    tdir = "./tmp/User/"
-  elif core['Stage'] == 1:
-    mdir = core['A_Dir']
-    tdir = "./tmp/Ads/"
+# @description: copies a file over to the specified tmp directory
+def copyFile( filepath, stage ):
+  if stage == 0:
+    futureFile = './tmp/userRecs/' + os.path.basename(filepath)
+    UTIL.copy2( filepath, futureFile )
   else:
-    print "ERROR: bad stage value in Copy and Convert"
+    futureFile = './tmp/adRecs/' + os.path.basename(filepath)
+    UTIL.copy2( filepath, futureFile )
 
-  currentFile = os.path.join( mdir, fileName )
-  futureFile = tdir + fileName
-  subprocess.call(['./lame', '--decode', currentFile, futureFile])
+# -----------------------------------------------------------------------------
+# convertFile()
+# @description: converts an MP3 file to a WAV file and places it inside
+#               the tmp/ directory.
+#               (note: filename is retained, including .mp3 extension)
+def convertFile ( filepath, stage ):
+  if stage == 0:
+    tempDir = './tmp/userRecs/'
+  else:
+    tempDir = './tmp/adRecs/'
+
+  futureFile = tempDir + os.path.basename(fileName)
+  subprocess.call(['./lame', '--decode', filepath, futureFile])

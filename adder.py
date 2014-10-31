@@ -1,7 +1,7 @@
-# AudioMG: MATCH GOOD!
 # @module: adder
 # @description: The Adder module, moves all validated files to tmp folders
 #               and then adds them to the database.
+# @version: 31-10-2014
 
 # -----------------------------------------------------------------------------
 # imports
@@ -20,51 +20,35 @@ def add( core ):
   result = core
 
   # generate directories
-  makedirs('./tmp/User/')
-  makedirs('./tmp/Ads/')
+  makedirs('./tmp/userRecs/')
+  makedirs('./tmp/adRecs/')
 
-  # sets the stage to user mode.
-  result['Stage'] = 0
+  # converts/copies over user recordings to a tmp folder.
+  # fft's user recordings and adds data to OCore database.
+  for f in listdir(result['U_Dir']):
+    f = join( result['U_Dir'], f )
+    result['database']['userRecs'].append( subAdd(f, 0) )
 
-  # adds fft data from tmp/user audio files via subAdd()
-  for i in listdir(result['U_Dir']):
-    result['database']['user'].append( subAdd(i, result) )
-
-  # sets the stage to advertisement mode.
-  result['Stage'] = 1
-
-  # adds fft data from tmp/Ads audio files via subAdd()
-  for i in listdir(result['A_Dir']):
-    result['database']['advertisements'].append( subAdd(i, result) )
+  # same as above, but for advertisement recordings.
+  for f in listdir(result['A_Dir']):
+    f = join( result['A_Dir'], f )
+    result['database']['adRecs'].append( subAdd(f, 1) )
 
   return result, ''
 
 # -----------------------------------------------------------------------------
 # subAdd()
+# @filepath: path to a file (absolute or relative)
+# @stage: 0 (users directory) or 1 (ads directory)
 # @description: copies over file, converts that file, fft's that file
 # @return: fft'd audio data
-def subAdd( fileName, core ):
-  # if we are in user stage
-  if ( core['Stage'] == 0 ):
-    fullFile = join( core['U_Dir'], fileName )
-    # if file is mp3, convert it
-    if ( what( fullFile ) == None ):
-      convertFile( fileName, core )
-    # else, just copy it over
-    else:
-      copyFile( fileName, core )
-    data = process( fileName, core )
-    return data
-  # else we are in ad stage
+def subAdd( filepath, stage ):
+  # if file is mp3, convert it
+  if ( what( filepath ) == None ):
+    convertFile( filepath, stage )
+  # else, just copy it over
   else:
-    fullFile = join( core['A_Dir'], fileName )
-    # if file is mp3, convert it
-    if ( what( fullFile ) == None ):
-      convertFile( fileName, core )
-    # else, just copy it over
-    else:
-      copyFile( fileName, core )
-    data = process( fileName, core )
-    return data
+    copyFile( filepath, stage )
+  return process( fileName )
 
 
