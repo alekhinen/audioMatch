@@ -30,7 +30,10 @@ OCore = {
   'Threshold':100,
   'FSize':2.5,
   'FlatR':0.8,
-  'DBase':[],
+  'database': {
+    'user': [],
+    'advertisements': []
+  },
   'Log':[]
 }
 
@@ -45,13 +48,15 @@ print output
 OCore, output = add(OCore)
 # log(output)
 print output
-print 'log ---------'
-print OCore['Log']
+# print 'log ---------'
+# print OCore['Log']
 OCore, output, result = check(OCore)
 # log(output)
 print output
-print 'log ---------'
-print OCore['Log']
+print 'database --------- user'
+print OCore['database']['user']
+print 'database --------- advertisements'
+print OCore['database']['advertisements']
 
 # TODO: unnecessary
 # for i in result:

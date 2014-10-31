@@ -22,17 +22,22 @@ def add( core ):
   makedirs('./tmp/User/')
   makedirs('./tmp/Ads/')
 
-  # generates the list of files in the user directory
-  filesUser = []
-  for i in listdir(result['U_Dir']):
-    filesUser.append( i )
+  # TODO: unnecessary
+  # # generates the list of files in the user directory
+  # filesUser = []
+  # for i in listdir(result['U_Dir']):
+  #   filesUser.append( i )
 
   # sets the stage to user mode.
   result['Stage'] = 0
 
-  # adds the files via SubAdd()
-  for i in filesUser:
-    result['DBase'].append( subAdd( i, result ) )
+  # adds fft data from tmp/user audio files via subAdd()
+  for i in listdir(result['U_Dir']):
+    result['database']['user'].append( subAdd(i, result) )
+
+  # adds fft data from tmp/Ads audio files via subAdd()
+  for i in listdir(result['A_Dir']):
+    result['database']['advertisements'].append( subAdd(i, result) )
 
   return result, ''
 
