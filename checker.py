@@ -30,7 +30,7 @@ def check( core ):
 # @description:
 def compare( user, ad ):
   # extensionMatch = user['fileExtension'] == ad['fileExtension']
-  threshold = 35000
+  threshold = 75000
   userFftLength = len(user['fft'])
   adFftLength = len(ad['fft'])
 
@@ -38,10 +38,11 @@ def compare( user, ad ):
   if userFftLength == adFftLength:
     i = 0
     j = 0
-    while i < userFftLength:
+    while i < userFftLength and i < adFftLength:
       j = 0
-      fragLen = len(user['fft'][i])
-      while j < fragLen:
+      fragLenUser = len(user['fft'][i])
+      fragLenAd   = len(ad['fft'][i])
+      while j < fragLenUser and j < fragLenAd:
         userAmplitude = user['fft'][i][j].real
         adAmplitude = ad['fft'][i][j].real
         if math.fabs(userAmplitude - adAmplitude) > threshold:

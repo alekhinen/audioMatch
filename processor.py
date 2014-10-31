@@ -48,7 +48,7 @@ def process( filepath ):
   i = 0
   aLength = len(a)
   # either hit 800 thousand iterations or go through entire data set.
-  while (i < aLength) and (i < 800000):
+  while (i < aLength):
     b.append( (a[i] / 256)*2-1 )
     i += 1
 

@@ -32,4 +32,4 @@ def convertFile ( filepath, stage ):
     tempDir = './tmp/adRecs/'
 
   futureFile = tempDir + os.path.basename(filepath)
-  subprocess.call(['./lame', '--decode', filepath, futureFile])
+  subprocess.call(['./lame', '--silent', '--decode', filepath, futureFile])
