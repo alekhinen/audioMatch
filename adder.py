@@ -46,8 +46,9 @@ def add( core ):
 def subAdd( fileName, core ):
   # if we are in user stage
   if ( core['Stage'] == 0 ):
+    fullFile = os.path.join( core['U_Dir'], fileName )
     # if file is mp3, convert it
-    if ( what(core['U_Dir'] + fileName) == 'mp3' ):
+    if ( what( fullFile ) == 'mp3' ):
       convertFile( fileName, core )
     # else, just copy it over
     else:
@@ -56,8 +57,9 @@ def subAdd( fileName, core ):
     return data
   # else we are in ad stage
   else:
+    fullFile = os.path.join( core['A_Dir'], fileName )
     # if file is mp3, convert it
-    if ( what(core['A_Dir'] + fileName) == 'mp3' ):
+    if ( what( fullFile ) == 'mp3' ):
       convertFile( fileName, core )
     # else, just copy it over
     else:
