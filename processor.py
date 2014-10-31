@@ -20,15 +20,16 @@ def process( filepath ):
   # initialize result
   result = {
     'filename': os.path.basename(filepath),
+    'fileExtension': os.path.basename(filepath).split('.')[1],
     'samplingRate': 0,
-    'channels': 0.
+    'channels': 0,
     'bitsPerSamp': 0,
     'fft': []
   }
 
   samplingRate, data = wavfile.read( filepath )
   # collect metadata
-  metadata = what( dirr + fileName )
+  metadata = what( filepath )
   channels = metadata[2]
   bitsPerSamp = metadata[4]
 
@@ -42,7 +43,7 @@ def process( filepath ):
   b = []
   i = 0
   aLength = len(a)
-  while (i < aLength) and (i < 1000000):
+  while (i < aLength) and (i < 800000):
     b.append( (a[i] / 256)*2-1 )
     i += 1
 

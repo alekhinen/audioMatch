@@ -52,20 +52,14 @@ OCore, output = add(OCore)
 print output
 # print 'log ---------'
 # print OCore['Log']
-OCore, output, result = check(OCore)
+print 'database --------- user'
+print OCore['database']['userRecs']
+print 'database --------- advertisements'
+print OCore['database']['adRecs']
+
+output = check(OCore)
 # log(output)
 print output
-print 'database --------- user'
-print OCore['database']['user']
-print 'database --------- advertisements'
-print OCore['database']['advertisements']
-
-# TODO: unnecessary
-# for i in result:
-#   print i
-
-# for i in OCore['Log']:
-#   print i + '\n'
 
 # clean up temporary directory
 shutil.rmtree('./tmp/')

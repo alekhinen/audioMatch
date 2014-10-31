@@ -6,7 +6,7 @@
 # -----------------------------------------------------------------------------
 # imports
 from os          import listdir
-from os.path     import isfile, join
+from os.path     import isfile, join, basename
 from processor   import process
 from copyconvert import copyFile, convertFile
 from sndhdr      import what
@@ -49,6 +49,13 @@ def subAdd( filepath, stage ):
   # else, just copy it over
   else:
     copyFile( filepath, stage )
-  return process( fileName )
+  
+  # if in user recordings stage, process the file in the user's tmp dir
+  if stage == 0:
+    tmpF = join( './tmp/userRecs/', basename(filepath) )
+  else:
+    tmpF = join( './tmp/adRecs/', basename(filepath) )
+  return process( tmpF )
+
 
 

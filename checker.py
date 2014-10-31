@@ -1,31 +1,35 @@
-#AudioMG: MATCH GOOD!
+# @module: checker
+# @description: checks files against the database and compares them to matches
+# @version: 31-10-2014
 
-#The Checker
-# checks files against the database. and compares them to matches
-
-#Imports
+# -----------------------------------------------------------------------------
+# imports
 from os import listdir
 from os.path import isfile, join
 from processor import process
 from copyconvert import copyFile, convertFile
-from comparator import compare
 
-#Runs Subcheck on all files in A_Dir after setting the stage
-def check ( core ) :
-  #Sets the Stage to Ad mode
-  core['Stage'] = 1
-  result = []
-  filesAd = [ i for i in listdir(core['A_Dir']) if isfile(i) ]
-  # generates the list of user files to be added
-  for i in filesAd:
-   result.append(subCheck(i, core))
-  return core, "", result
+# -----------------------------------------------------------------------------
+# check()
+# @description: checks all files in user recordings against political
+#               recordings in an attempt to find matches.
+def check( core ):
+  message = ''
 
-#Preforms individual checks.
-def subCheck ( fileName, core ):
-  copyFile(fileName)
-  convertFile(fileName)
-  return compare(fileName, core, process(fileName, core)) 
+  for userRec in core['database']['userRecs']:
+    for adRec in core['database']['adRecs']:
+      message += compare( userRec, adRec )
 
+  return message
 
+# -----------------------------------------------------------------------------
+# compare()
+# @user
+# @ad
+# @description:
+def compare( user, ad ):
+  if ( user['fileExtension'] == ad['fileExtension'] ):
+    return 'MATCH: ' + user['filename'] + ad['filename'] + '\n'
+  else:
+    return ''
 
