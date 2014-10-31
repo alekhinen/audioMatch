@@ -37,13 +37,21 @@ OCore = {
 # -----------------------------------------------------------------------------
 # Main function, acts based upon OCore['Mode']
 OCore, output = parse(OCore, sys.argv)
-log(output)
+# log(output)
+print output
 OCore, output = validate(OCore)
-log(output)
+# log(output)
+print output
 OCore, output = add(OCore)
-log(output)
+# log(output)
+print output
+print 'log ---------'
+print OCore['Log']
 OCore, output, result = check(OCore)
-log(output)
+# log(output)
+print output
+print 'log ---------'
+print OCore['Log']
 
 # TODO: unnecessary
 # for i in result:

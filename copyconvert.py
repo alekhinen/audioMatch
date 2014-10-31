@@ -32,8 +32,8 @@ def convertFile ( fileName, core ):
 
   # get the base name (os.path.basename returns FILENAME.FILEFORMAT)
   baseFileName = os.path.basename( fileName ).split('.')[0]
-  print baseFileName
-  fullFileName = tdir + baseFileName + '.wav'
+  # print baseFileName
+  # fullFileName = tdir + baseFileName + '.wav'
   subprocess.call(["lame", "--decode", mdir + fileName, fullFileName])
 
 
