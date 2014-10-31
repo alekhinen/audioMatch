@@ -23,16 +23,30 @@ def add( core ):
   makedirs('./tmp/userRecs/')
   makedirs('./tmp/adRecs/')
 
-  # converts/copies over user recordings to a tmp folder.
-  # fft's user recordings and adds data to OCore database.
-  for f in listdir(result['U_Dir']):
-    f = join( result['U_Dir'], f )
+  # file mode
+  if ( core['Mode1'] == 0 ):
+    f = result['U_Dir']
     result['database']['userRecs'].append( subAdd(f, 0) )
 
-  # same as above, but for advertisement recordings.
-  for f in listdir(result['A_Dir']):
-    f = join( result['A_Dir'], f )
+  # directory mode
+  if ( core['Mode1'] == 1 ):
+    # converts/copies over user recordings to a tmp folder.
+    # fft's user recordings and adds data to OCore database.
+    for f in listdir(result['U_Dir']):
+      f = join( result['U_Dir'], f )
+      result['database']['userRecs'].append( subAdd(f, 0) )
+
+  # file mode
+  if ( core['Mode2'] == 0 ):
+    f = result['A_Dir']
     result['database']['adRecs'].append( subAdd(f, 1) )
+
+  # directory mode
+  if ( core['Mode2'] == 1 ):
+    # same as above, but for advertisement recordings.
+    for f in listdir(result['A_Dir']):
+      f = join( result['A_Dir'], f )
+      result['database']['adRecs'].append( subAdd(f, 1) )
 
   return result, ''
 
@@ -49,7 +63,7 @@ def subAdd( filepath, stage ):
   # else, just copy it over
   else:
     copyFile( filepath, stage )
-  
+
   # if in user recordings stage, process the file in the user's tmp dir
   if stage == 0:
     tmpF = join( './tmp/userRecs/', basename(filepath) )
