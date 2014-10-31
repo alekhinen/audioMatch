@@ -30,7 +30,7 @@ def check( core ):
 # @description:
 def compare( user, ad ):
   # extensionMatch = user['fileExtension'] == ad['fileExtension']
-  threshold = 1000
+  threshold = 35000
   userFftLength = len(user['fft'])
   adFftLength = len(ad['fft'])
 
