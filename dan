@@ -40,18 +40,13 @@ OCore = {
 # -----------------------------------------------------------------------------
 # Main function, acts based upon OCore['Mode']
 OCore, output = parse(OCore, sys.argv)
-# log(output)
-print output
+log(output)
 OCore, output = validate(OCore)
-# log(output)
-print output
+log(output)
 OCore, output = add(OCore)
-# log(output)
-print output
-
+log(output)
 output = check(OCore)
-# log(output)
-print output
+log(output)
 
 # clean up temporary directory
 shutil.rmtree('./tmp/')

@@ -16,5 +16,9 @@ import sys
 # log()
 def log( output ):
   if output:
-    print output
-    #sys.exit(1)
+    if 'ERROR:' in output:
+      print output
+      sys.exit(1)
+    else:
+      print output
+

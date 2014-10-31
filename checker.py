@@ -21,6 +21,8 @@ def check( core ):
     for adRec in core['database']['adRecs']:
       message += compare( userRec, adRec )
 
+  # remove last /n from message
+  message = message[:-2]
   return message
 
 # -----------------------------------------------------------------------------
