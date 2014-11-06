@@ -1,13 +1,9 @@
 #!/usr/bin/env python
 
-# AudioMG: MATCH GOOD!
-# @authors: Nick Alekhine,
-#           Michael Chadbourne,
-#           John Meenagh,
-#           Charles Perrone
+# @authors: Nick Alekhine, Michael Chadbourne, John Meenagh, Charles Perrone
 # @description: Designed to identify files in one directory with matching
 #               segments in the other.
-# @version: 30-10-2014
+# @version: 06-11-2014
 
 # -----------------------------------------------------------------------------
 # imports
