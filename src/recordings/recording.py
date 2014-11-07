@@ -24,7 +24,7 @@ class Recording:
     self.filepath = filepath
     self.fragments = []
 
-  # appendFragment
+  # appendFragment()
   # @param: fragment - an array of real number
   # @description: adds a fragment to fragments
   # @returns: 
@@ -32,7 +32,7 @@ class Recording:
     self.fragments.append( fragment )
     return self.fragments
 
-  # extractFragment
+  # extractFragment()
   # @param: i - an index position
   # @description: get the fragment at the ith position
   # @returns: a fragment (array of real numbers)
@@ -42,7 +42,7 @@ class Recording:
     else:
       return None
 
-  # removeFragment
+  # removeFragment()
   # @param: i - an index position
   # @description: removes the fragment at the ith position
   # @returns: array of fragments
@@ -50,5 +50,24 @@ class Recording:
     if ( i < len(self.fragments) and i >= 0 ):
       self.fragments.pop( i )
     return self.fragments
+
+  # hash()
+  # @description: returns the hashvalue of self
+  # @returns: a hashvalue (integer)
+  def hash( self ):
+    result = 0
+
+    for char in self.filepath:
+      result += ord(char)
+    for char in self.filename:
+      result += ord(char)
+
+    return result
+
+  def equals( self, obj ):
+    if not isinstance(obj, Recording):
+      return False
+    else:
+      return self.hash() == obj.hash()
 
 

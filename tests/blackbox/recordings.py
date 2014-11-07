@@ -56,3 +56,38 @@ class TestRecordings:
 
     assert_equal( self.rec1.removeFragment(1), [[0, 1, 2, 3], [9, 9, 9, 9, 9]] )
     assert_equal( self.rec1.removeFragment(1), [[0, 1, 2, 3]] )
+
+  # testHashAndEquals()
+  # @description: tests the hash() and equals() method on fixtures
+  def testHashAndEquals( self ):
+    self.reset()
+
+    rec3 = Recording('a', 'b')
+    rec4 = Recording('aaa', '')
+    assert_equal( rec3.hash(), 195 )
+    assert_equal( rec3.equals(rec4), False )
+    assert_equal( rec3.equals(None), False )
+    assert_equal( rec3.equals(195), False )
+
+    assert_equal( self.rec1.equals(self.rec2), False )
+    assert_equal( self.rec2.equals(self.rec1), False )
+
+    assert_equal( self.rec2.equals(self.rec2), True )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
