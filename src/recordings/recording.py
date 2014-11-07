@@ -22,11 +22,33 @@ class Recording:
   def __init__( self, filename, filepath ):
     self.filename = filename
     self.filepath = filepath
+    self.fragments = []
 
-  # addFragment
+  # appendFragment
   # @param: fragment - an array of real number
   # @description: adds a fragment to fragments
-  def addFragment( fragment ):
-    fragments.append( fragment )
+  # @returns: 
+  def appendFragment( self, fragment ):
+    self.fragments.append( fragment )
+    return self.fragments
+
+  # extractFragment
+  # @param: i - an index position
+  # @description: get the fragment at the ith position
+  # @returns: a fragment (array of real numbers)
+  def getFragment( self, i ):
+    if ( i < len(self.fragments) and i >= 0 ):
+      return self.fragments[i]
+    else:
+      return None
+
+  # removeFragment
+  # @param: i - an index position
+  # @description: removes the fragment at the ith position
+  # @returns: array of fragments
+  def removeFragment( self, i ):
+    if ( i < len(self.fragments) and i >= 0 ):
+      self.fragments.pop( i )
+    return self.fragments
 
 
