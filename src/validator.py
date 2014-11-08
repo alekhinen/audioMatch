@@ -11,48 +11,48 @@ import sndhdr
 
 # -----------------------------------------------------------------------------
 # validate()
-def validate( OCore ):
+def validate( core ):
   isValid = True
   errMsg = ''
 
   # TODO: check if supplied is directory or file.
-  if OCore['Mode1'] == 1:
-    if OCore['Mode2'] == 1:
-      isValid = os.path.isdir(OCore['U_Dir']) and os.path.isdir(OCore['A_Dir'])
-    elif OCore['Mode2'] == 0:
-      isValid = os.path.isdir(OCore['U_Dir']) and os.path.isfile(OCore['A_Dir'])
-  elif OCore['Mode1'] == 0:
-    if OCore['Mode2'] == 1:
-      isValid = os.path.isfile(OCore['U_Dir']) and os.path.isdir(OCore['A_Dir'])
-    elif OCore['Mode2'] == 0:
-      isValid = os.path.isfile(OCore['U_Dir']) and os.path.isfile(OCore['A_Dir'])
+  if core.getUserMode() == 1:
+    if core.getAdMode() == 1:
+      isValid = os.path.isdir(core.getUserDir()) and os.path.isdir(core.getAdDir())
+    elif core.getAdMode() == 0:
+      isValid = os.path.isdir(core.getUserDir()) and os.path.isfile(core.getAdDir)
+  elif core.getUserMode == 0:
+    if core.getAdMode == 1:
+      isValid = os.path.isfile(core.getUserDir()) and os.path.isdir(core.getAdDir())
+    elif core.getAdMode() == 0:
+      isValid = os.path.isfile(core.getUserDir()) and os.path.isfile(core.getAdDir())
   else:
     isValid = False
 
   if ( not isValid ):
     errMsg = 'ERROR: flagged a directory that was not a directory OR flagged a file that was not a file'
 
-  return OCore, errMsg
+  return errMsg
 
   # check if the directories actually exist
-  isValid = isValid and os.path.exists( OCore['U_Dir'] )
-  isValid = isValid and os.path.exists( OCore['A_Dir'] )
+  isValid = isValid and os.path.exists( core.getUserDir() )
+  isValid = isValid and os.path.exists( core.getAdDir() )
 
   if ( not isValid ):
     errMsg = 'ERROR: Supplied pathname(s) does not exist.'
 
-  return OCore, errMsg
+  return errMsg
 
   # if directories exist, validate all the files in each directories
   if ( isValid ):
-    isValid = isValid and validateDir( OCore['U_Dir'] )
-    isValid = isValid and validateDir( OCore['A_Dir'] )
+    isValid = isValid and validateDir( core.getUserDir() )
+    isValid = isValid and validateDir( core.getAdDir() )
 
   # if directories or files are not valid, update errMsg
   if ( not isValid ):
     errMsg = 'ERROR: Supplied file(s) are not valid.'
 
-  return OCore, errMsg
+  return errMsg
 
 
 def validateDir( dirPath ):
@@ -109,4 +109,5 @@ def validateFile( f ):
     isValid = isValid and 'v1' in fMeta
 
   return isValid
+
 
