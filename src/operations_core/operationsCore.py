@@ -8,12 +8,24 @@ class OperationsCore:
   threshold = 75000
   fragmentSize = 2.5
 
-  # links to database of fragments of recordings
-  userRecordings =
-  adRecordings =
+  userMode = 0
+  adMode   = 0
+  stage    = 0
+ 
 
   # ---------------------------------------------------------------------------
   # methods
   def __init__( self, fragmentSize, threshold ):
     self.fragmentSize = fragmentSize
     self.threshold = threshold
+  
+  def setMode(self, uMode, aMode ):
+    self.userMode = uMode
+    self.adMode = aMode
+  def setStage(self, stage):
+    self.stage = stage
+  def setUserDir(self, directory):
+    self.userDirectory = directory
+  def setAdDir(self, directory):
+    self.adsDirectory = directory
+  

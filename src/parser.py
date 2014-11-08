@@ -19,7 +19,6 @@ def checkTag( tag ):
 # parse()
 # parses the CLI and changes OCore's modes and directories accordingly
 def parse( core, sysArgs ):
-  result = core
   outputText = ''
 
   # pull args from command-line
@@ -39,14 +38,13 @@ def parse( core, sysArgs ):
   if ( m1 == -1 or m2 == -1 ):
     outputText = 'ERROR: improper flagtype supplied.'
   else:
-    result['Mode1'] = checkTag(tag1)
-    result['Mode2'] = checkTag(tag2)
+    core.setMode(checkTag(tag1), checkTag(tag2))
     # update the directories
-    result['U_Dir'] = dir1
-    result['A_Dir'] = dir2
+    core.setUserDir(dir1)
+    core.setAdDir(dir2)
 
   # return the modified core object and output text.
-  return result, outputText
+  return outputText
 
 
 
