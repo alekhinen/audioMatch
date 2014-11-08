@@ -6,7 +6,7 @@ sys.path.append('../../src/recordings')
 from recording import Recording
 
 # -----------------------------------------------------------------------------
-# tests all modules in recordings
+# tests all methods in Recording
 class TestRecordings:
 
   rec1 = Recording('../assets/D1/bad0616.wav', 'bad0616.wav')

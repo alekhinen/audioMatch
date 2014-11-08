@@ -2,7 +2,7 @@
 #
 # @description: A recording
 # @author: Nick Alekhine
-# @version: 06-11-2014
+# @version: 06-11-2014 (DD-MM-YYYY)
 
 class Recording:
 
@@ -13,6 +13,7 @@ class Recording:
   filename = ''
   filepath = ''
   fragments = []
+  hashValue = -1
 
   # ---------------------------------------------------------------------------
   # METHODS
@@ -23,11 +24,12 @@ class Recording:
     self.filename = filename
     self.filepath = filepath
     self.fragments = []
+    self.hashValue = self.computeHash()
 
   # appendFragment()
   # @param: fragment - an array of real number
   # @description: adds a fragment to fragments
-  # @returns: 
+  # @returns: the list of fragments
   def appendFragment( self, fragment ):
     self.fragments.append( fragment )
     return self.fragments
@@ -51,10 +53,10 @@ class Recording:
       self.fragments.pop( i )
     return self.fragments
 
-  # hash()
-  # @description: returns the hashvalue of self
-  # @returns: a hashvalue (integer)
-  def hash( self ):
+  # computeHash()
+  # @description: computes the hash value of this
+  # @returns: this hash value (integer)
+  def computeHash( self ):
     result = 0
 
     for char in self.filepath:
@@ -62,8 +64,22 @@ class Recording:
     for char in self.filename:
       result += ord(char)
 
-    return result
+    self.hashValue = result
+    return self.hashValue
 
+  # hash()
+  # @description: returns the hashvalue of self
+  # @returns: a hashvalue (integer)
+  def hash( self ):
+    if self.hashValue == -1:
+      return self.computeHash()
+    else: 
+      return self.hashValue
+    
+  # equals()
+  # @param: obj - an object
+  # @description: compares an object to this
+  # @return: boolean
   def equals( self, obj ):
     if not isinstance(obj, Recording):
       return False
