@@ -11,6 +11,8 @@ class OperationsCore:
   userMode = 0
   adMode   = 0
   stage    = 0
+
+  recDB    = 0
  
 
   # ---------------------------------------------------------------------------
@@ -18,6 +20,7 @@ class OperationsCore:
   def __init__( self, fragmentSize, threshold ):
     self.fragmentSize = fragmentSize
     self.threshold = threshold
+    self.recDB = recordingsDatabase()
   
   def setMode(self, uMode, aMode ):
     self.userMode = uMode
