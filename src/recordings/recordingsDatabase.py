@@ -44,7 +44,7 @@ class RecordingsDatabase:
     else:
       return None
 
-  # addFragment()
+  # addRecording()
   # @param: fragment - an instance of Fragment
   # @description: adds a fragment to the fragments database
   # @returns: list of values at key (from dictionary)
