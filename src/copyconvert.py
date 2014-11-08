@@ -7,15 +7,43 @@
 import os.path
 import shutil as UTIL
 import subprocess
-import os.path
+from os import remove
+
+
+# copyAndConvert()
+def copyAndConvert( filepath, stage ):
+  if stage == 0:
+     tempdir = '../tmp/userRecs/'
+
+  else:
+     tempdir = '../tmp/adRecs/'
+
+  basename = os.path.basename(filepath)
+  filename = os.path.splitext(basename)[0]
+  fileExtension = os.path.splitext(basename)[1]
+  futureFile = tempdir + filename
+  subprocess.call(['../vendor/lame', '-a', filepath, futureFile + '_mono.mp3' ])
+  subprocess.call(['../vendor/lame', '--resample', '8.192', futureFile + '_mono.mp3', futureFile + '_resampled.mp3'])
+  subprocess.call(['../vendor/lame', '--decode', futureFile + '_resampled.mp3', futureFile + fileExtension])
+    
+  remove(futureFile + '_mono.mp3')
+  remove(futureFile + '_resampled.mp3')
 
 # -----------------------------------------------------------------------------
 # copyFile()
 # @description: copies a file over to the specified tmp directory
 def copyFile( filepath, stage ):
   if stage == 0:
-    futureFile = './tmp/userRecs/' + os.path.basename(filepath)
-    UTIL.copy2( filepath, futureFile )
+    filename = os.path.splitext(os.path.basename(filepath))[0]
+    futureFile = '../tmp/userRecs/' + filename
+    subprocess.call(['../vendor/lame', '-a', filepath, futureFile + '_mono.mp3' ])
+    subprocess.call(['../vendor/lame', '--resample', '8.192', futureFile + '_mono.mp3', futureFile + '_resampled.mp3'])
+    # TODO: retain the original file extension (this forces everything to have a .wav extension)
+    subprocess.call(['../vendor/lame', '--decode', futureFile + '_resampled.mp3', futureFile + '.wav'])
+    
+    remove(futureFile + '_mono.mp3')
+    remove(futureFile + '_resampled.mp3')
+
   else:
     futureFile = './tmp/adRecs/' + os.path.basename(filepath)
     UTIL.copy2( filepath, futureFile )
