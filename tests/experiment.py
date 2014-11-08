@@ -1,8 +1,30 @@
 import os.path
 import subprocess
 
-inputFile = './assets/D1.wav'
-subprocess.call(['../vendor/lame', '--resample', '22.05', inputFile])
+# TEST 1 (z03)
+inputFile = './assets/D1/z03.wav'
+outputFile = './assets/D1_modified/z03.mp3'
+outputFile2 = './assets/D1_modified/z03_decoded.wav'
+subprocess.call(['../vendor/lame', '-a', inputFile, outputFile])
+subprocess.call(['../vendor/lame', '--resample', '8.192', outputFile])
+subprocess.call(['../vendor/lame', '--decode', outputFile + '.mp3', outputFile2 ])
+
+# TEST 2 (rimsky)
+inputFile = './assets/D1/rimsky.mp3'
+outputFile = './assets/D1_modified/rimsky.mp3'
+outputFile2 = './assets/D1_modified/rimsky_decoded.wav'
+subprocess.call(['../vendor/lame', '-a', inputFile, outputFile])
+subprocess.call(['../vendor/lame', '--resample', '8.192', outputFile])
+subprocess.call(['../vendor/lame', '--decode', outputFile + '.mp3', outputFile2])
+
+# TEST 3 (WhoopeeTiYiYo)
+inputFile = './assets/D1/WhoopeeTiYiYo.mp3'
+outputFile ='./assets/D1_modified/WhoopeeTiYiYo.mp3'
+outputFile2 = './assets/D1_modified/WhoopeeTiYiYo.wav'
+subprocess.call(['../vendor/lame', '-a', inputFile, outputFile])
+subprocess.call(['../vendor/lame', '--resample', '8.192', outputFile])
+subprocess.call(['../vendor/lame', '--decode', outputFile + '.mp3', outputFile2])
+
 
 # CANONICAL
 # set to wav
