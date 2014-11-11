@@ -5,7 +5,7 @@ sys.path.append('../../src/recordings')
 
 from recording import Recording
 from fragment import Fragment
-from recordingsDatabase import RecordingsDatabase
+from database import RecordingsDatabase
 
 # -----------------------------------------------------------------------------
 # tests all methods in RecordingsDatabase

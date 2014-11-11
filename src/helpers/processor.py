@@ -22,26 +22,15 @@ from sndhdr        import what
 # @returns: dictionary with FFT and metadata
 def process( filepath ):
   # initialize result
-  result = {
-    'filename': os.path.basename(filepath),
-    'fileExtension': os.path.basename(filepath).split('.')[1],
-    'samplingRate': 0,
-    'channels': 0,
-    'bitsPerSamp': 0,
-    'fft': []
-  }
-
+  result = []
+  
   samplingRate, data = wavfile.read( filepath )
   # collect metadata
   metadata = what( filepath )
-  channels = metadata[2]
   bitsPerSamp = metadata[4]
 
   # get audio track data
-  if ( channels > 1 ):
-    a = data.T[0]
-  else:
-    a = data.T
+  a = data.T
 
   # normalize audio track over [-1, 1)
   b = []
@@ -71,12 +60,10 @@ def process( filepath ):
     end = end + fragSize
 
   for e in primList:
-    result['fft'].append(fft(e))
+   result.append( fft(e) )
 
   # update result
-  result['samplingRate'] = samplingRate
-  result['channels'] = channels
-  result['bitsPerSamp'] = bitsPerSamp
+  
 
   return result
 
