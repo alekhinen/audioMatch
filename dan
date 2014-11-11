@@ -10,33 +10,22 @@
 
 import sys
 import shutil
-from src.recordings.database import RecordingsDatabase
-from parser    import parse
-from validator import validate
-from adder     import add
-from checker   import check
-from logger    import log
+from src.operationsCore import OperationsCore
 
 # -----------------------------------------------------------------------------
 # initialize all necessary components
 ocore = OperationsCore(2.5, 75000)
-database = RecordingsDatabase()
 
 
 # -----------------------------------------------------------------------------
 # Main function, acts based upon OCore['Mode']
 
-# Parse the CLI arguments.
-parsedArgs = parse( sys.argv )
-# Validate the parsed arguments.
-validate( parsedArgs )
-# Set the validated, parsed arguments inside ocore.
-ocore.setArguments( parsedArgs )
-
-output = add(OCore)
-log(output)
-output = check(OCore)
-log(output)
-
-# clean up temporary directory
-shutil.rmtree('./tmp/')
+# Parses, validates, and sets system arguments.
+ocore.setArguments( sys.argv )
+# Copies and converts all files into ./tmp directory.
+ocore.convertFiles()
+# Processes and adds all ad recordings + fragments to internal DB.
+ocore.addAdsToDB()
+# Processes + adds 1 user recording + fragments at a time. 
+# Compares each user recording against all users.
+ocore.compareUsersAgainstAds()

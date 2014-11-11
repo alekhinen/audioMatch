@@ -18,7 +18,8 @@ class OperationsCore:
   # various constants used for processing + comparison
   threshold = 75000
   fragmentSize = 2.5
- 
+  # database of recordings and fragments from users and ads
+  recDB = RecordingsDatabase()
 
   # ---------------------------------------------------------------------------
   # METHODS
