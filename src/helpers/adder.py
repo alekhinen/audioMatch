@@ -4,22 +4,24 @@
 #imports
 
 from os import listdir, path
-
+import sys
+from recordings.recording import Recording
+import processor
 
 
 #
 
-taDir = './tmp/adRecs/'
-
 
 def add( core ):
 
-  aMode = core.getAdMode()
-  aDir  = core.getAdDir()
+  aMode = core.getAdsMode()
+  aDir  = core.getAdsDir()
+  taDir = core.getTmpAdsDir()
 
   #file mode
   if ( aMode == 0 ):
-    subAdd( core, aDir, "", taDir )
+    basename = path.basename(aDir)
+    subAdd( core, aDir, basename, taDir )
 
   # directory mode
   if ( aMode == 1 ):
@@ -30,12 +32,11 @@ def add( core ):
 #
 def subAdd(core, filePath, fileName, tempPath):
   #
-  tmpF = join( tempPath, fileName )
+  tmpF = path.join( tempPath, fileName )
 
-  rec = recording( fileName, filePath )
-  for i in process(tmpF) rec.appendFragment(i)
+  rec = Recording( fileName, filePath )
+  for i in processor.process(tmpF):
+    rec.appendFragment(i)
 
   core.recDB.addRecording(rec)
 
-  return none
-  

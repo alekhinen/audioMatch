@@ -55,16 +55,18 @@ def process( filepath ):
     while (i < bLength and i < end):
       subList.append(b[i])
       i += 1
-    primList.append(subList)
+    for i in subList:
+      primList.append(i)
     start = end
     end = end + fragSize
 
   for e in primList:
-   result.append( fft(e) )
+   if ( e.size % 2 == 0 ):
+     result.append( fft(e) )
 
   # update result
   
-
+  print result
   return result
 
 

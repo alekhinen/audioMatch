@@ -84,6 +84,12 @@ class OperationsCore:
   # getAdsMode()
   def getAdsMode( self ):
     return self.modeAds
+  # getTmpAdsDir()
+  def getTmpAdsDir( self ):
+    return self.tmpDirAds
+  # getTmpUsersDir()
+  def getTmpUsersDir( self ):
+    return self.tmpDirUsers
 
   # ---------------
   # -  CONVERSION -
