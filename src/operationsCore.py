@@ -1,3 +1,11 @@
+from recordings.database import RecordingsDatabase
+import helpers.argParser as parser
+import helpers.validator as validator
+import helpers.copyconvert as copyconvert
+from shutil import rmtree
+from os import makedirs
+import os.path
+
 class OperationsCore:
 
   # ---------------------------------------------------------------------------
@@ -8,8 +16,8 @@ class OperationsCore:
   dirUsers = './'
   dirAds = './'
   # directory of temporary audio files
-  tmpDirUsers = './'
-  tmpDirAds = './'
+  tmpDirUsers = './tmp/users/'
+  tmpDirAds = './tmp/ads/'
   # modes for audio files (0 == file, 1 == directory)
   modeUsers = 0
   modeAds = 0
@@ -30,15 +38,18 @@ class OperationsCore:
     self.fragmentSize = fragmentSize
     self.threshold = threshold
   
+  # ---------------
+  # -   SETTERS   -
+  # ---------------
+
   # setArguments()
   # @description: sets arguments based off of CLI arguments
   def setArguments( self, sysArgs ):
     parsedArgs = parser.parse( sysArgs )
-    if ( validate.isValid( parsedArgs ) ):
+    if ( validator.isValid( parsedArgs ) ):
       self.setModes( parsedArgs[0], parsedArgs[2] )
       self.setUsersDir( parsedArgs[1] )
       self.setAdsDir( parsedArgs[3] )
-
 
   # setModes()
   def setModes( self, uMode, aMode ):
@@ -56,4 +67,80 @@ class OperationsCore:
   # setAdsDir()
   def setAdsDir( self, directory ):
     self.dirAds = directory
-  
+
+  # ---------------
+  # -   GETTERS   -
+  # ---------------
+
+  # getUsersDir()
+  def getUsersDir( self ):
+    return self.dirUsers
+  # getAdsDir()
+  def getAdsDir( self ):
+    return self.dirAds
+  # getUsersMode()
+  def getUsersMode( self ):
+    return self.modeUsers
+  # getAdsMode()
+  def getAdsMode( self ):
+    return self.modeAds
+
+  # ---------------
+  # -  CONVERSION -
+  # ---------------
+
+  # convertFiles()
+  # @description: copies and converts files from directories into tmp dirs
+  def convertFiles( self ):
+    self.createTmpDirectories()
+
+    if self.modeUsers == 0:
+      copyconvert.copyConvert(self.dirUsers, self.tmpDirUsers)
+    else:
+      for subdir, dirs, files in os.walk( self.dirUsers ):
+        for f in files:
+          copyconvert.copyConvert( os.path.join(self.dirUsers ,f), self.tmpDirUsers)
+
+    if self.modeAds == 0:
+      copyconvert.copyConvert(self.dirAds, self.tmpDirAds)
+    else:
+      for subdir, dirs, files in os.walk( self.dirAds ):
+        for f in files:
+          copyconvert.copyConvert( os.path.join(self.dirAds, f), self.tmpDirAds)
+
+  # createTmpDirectories()
+  # @description: creates tmp directories
+  def createTmpDirectories( self ):
+    # remove tmp directories if they exist.
+    self.removeTmpDirectories()
+    
+    # create the tmp directories
+    makedirs( self.tmpDirUsers )
+    makedirs( self.tmpDirAds )
+
+  # removeTmpDirectories()
+  # @description: removes tmp directories
+  def removeTmpDirectories( self ):
+    # check if tmp directories exist. if so, delete them.
+    if ( os.path.exists( self.tmpDirUsers ) ):
+      rmtree( self.tmpDirUsers )
+    if ( os.path.exists( self.tmpDirAds ) ):
+      rmtree( self.tmpDirAds )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

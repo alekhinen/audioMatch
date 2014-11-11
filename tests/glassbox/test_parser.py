@@ -9,7 +9,7 @@
 
 from nose.tools import *
 import sys
-sys.path.append('../../src')
+sys.path.append('../../src/helpers')
 import argParser as parser
 
 # -----------------------------------------------------------------------------

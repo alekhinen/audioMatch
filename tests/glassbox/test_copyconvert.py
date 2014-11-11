@@ -12,7 +12,7 @@ from os import makedirs
 from shutil import rmtree
 import os.path
 import sys
-sys.path.append('../../src')
+sys.path.append('../../src/helpers')
 import copyconvert
 
 # -----------------------------------------------------------------------------
