@@ -15,10 +15,12 @@ import subprocess
 # copyConvert()
 # @param filepath - the filepath of the file to be copied/converted.
 # @param folder - the folder in which to place the converted file.
-# @description copies over and converts the supplied file into the supplied
-# folder.
-# @returns - ???
+# @description copies and converts the supplied file into the supplied folder.
+# @returns - VOID
+# @author Nick Alekhine
+# @version 10-11-2014
 def copyConvert( filepath, folder ):
+
   # break apart supplied filepath
   basename = path.basename(filepath)
   filename = path.splitext(basename)[0]
@@ -30,15 +32,19 @@ def copyConvert( filepath, folder ):
   ffResampled = futureFile + '_resampled.mp3'
 
   # TODO: absolute filepath to lame. unsure if this is the right thing to do.
+  
+  # path to lame
+  lame = '/course/cs4500f14/bin/lame'
   # initialize subprocess calls
+  subProcess1 = [lame, '-a', filepath, ffMono] 
+  subProcess2 = [lame, '--resample', '8.192',  ffMono, ffResampled]
+  subProcess3 = [lame, '--decode', ffResampled, futureFile]
+  
   # convert original to mono
-  subProcess1 = ['/course/cs4500f14/bin/lame', '-a', filepath, ffMono] 
-  # convert mono to 8192 samples/sec
-  subProcess2 = ['/course/cs4500f14/bin/lame', '--resample', '8.192',  ffMono, ffResampled]
-  # convert resampled to wav (maintaining original extension)
-  subProcess3 = ['/course/cs4500f14/bin/lame', '--decode', ffResampled, futureFile]
   subprocess.call( subProcess1 )
+  # convert mono to 8192 samples/sec
   subprocess.call( subProcess2 )
+  # convert resampled to wav (maintaining original extension)
   subprocess.call( subProcess3 )
   
   # remove extraneous files

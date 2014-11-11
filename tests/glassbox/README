@@ -1,0 +1,10 @@
+# Glassbox Tests
+A set of unit tests for each module found in `/src`
+
+## Process Methodology
+For every module in `/src` a test file must be created that tests the methods
+found inside the respective module.
+
+## TODO
+- Create a script that runs all glassbox test files
+- Standardize formatting
