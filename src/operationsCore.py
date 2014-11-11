@@ -5,6 +5,7 @@ import helpers.copyconvert as copyconvert
 from shutil import rmtree
 from os import makedirs
 import os.path
+import helpers.processer as processer
 
 class OperationsCore:
 
@@ -26,7 +27,7 @@ class OperationsCore:
   # various constants used for processing + comparison
   threshold = 75000
   fragmentSize = 2.5
-  # database of recordings and fragments from users and ads
+  # database of recordings and fragments from ads
   recDB = RecordingsDatabase()
 
   # ---------------------------------------------------------------------------
@@ -85,9 +86,9 @@ class OperationsCore:
   def getAdsMode( self ):
     return self.modeAds
 
-  # ---------------
-  # -  CONVERSION -
-  # ---------------
+  # ----------------
+  # -  CONVERSION  -
+  # ----------------
 
   # convertFiles()
   # @description: copies and converts files from directories into tmp dirs
@@ -126,6 +127,27 @@ class OperationsCore:
       rmtree( self.tmpDirUsers )
     if ( os.path.exists( self.tmpDirAds ) ):
       rmtree( self.tmpDirAds )
+
+  # -----------------
+  # -  COMPARISONS  -
+  # -----------------
+
+  # compareUsersAgainstAds()
+  # @assumption: recDB contains all recordings + fragments from ads
+  # @assumption: ./tmp/users contains all processed recordings
+  def compareUsersAgainstAds( self ):
+    # process a single user recording
+    # store that recording + fragments inside recDB
+    # do the comparisons
+    #   - appends string results (e.g. "" or "MATCH ... ...") to RESULT
+    # remove that user recording + fragments from recDB
+    # repeat.
+    # return RESULT
+    
+    # for subdir, dirs, files in os.walk( self.tmpDirUsers ):
+    #   for f in files:
+    #     # TODO: Add to recordings db
+    #     #self.recDB = processer.process( f )
 
 
 
