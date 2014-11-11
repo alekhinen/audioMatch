@@ -110,7 +110,7 @@ class OperationsCore:
 
   # createTmpDirectories()
   # @description: creates tmp directories
-  def createTmpDirectories():
+  def createTmpDirectories( self ):
     # remove tmp directories if they exist.
     self.removeTmpDirectories()
     
@@ -120,7 +120,7 @@ class OperationsCore:
 
   # removeTmpDirectories()
   # @description: removes tmp directories
-  def removeTmpDirectories():
+  def removeTmpDirectories( self ):
     # check if tmp directories exist. if so, delete them.
     if ( os.path.exists( self.tmpDirUsers ) ):
       rmtree( self.tmpDirUsers )
