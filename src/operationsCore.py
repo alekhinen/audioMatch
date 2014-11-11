@@ -92,20 +92,8 @@ class OperationsCore:
   # convertFiles()
   # @description: copies and converts files from directories into tmp dirs
   def convertFiles( self ):
-    # check if tmp directories exist. if so, delete them.
-    if ( os.path.exists( self.tmpDirUsers ) ):
-      rmtree( self.tmpDirUsers )
-    if ( os.path.exists( self.tmpDirAds ) ):
-      rmtree( self.tmpDirAds )
+    self.createTmpDirectories()
 
-    # create the tmp directories
-    makedirs( self.tmpDirUsers )
-    makedirs( self.tmpDirAds )
-
-    # TODO: go through each file in users directory
-    #       and copyconvert them into corresponding
-    #       tmp directory.
-    # Same for the ads files.
     if self.modeUsers == 0:
       copyconvert.copyConvert(self.dirUsers, self.tmpDirUsers)
     else:
@@ -119,6 +107,25 @@ class OperationsCore:
       for subdir, dirs, files in os.walk( self.dirAds ):
         for f in files:
           copyconvert.copyConvert( os.path.join(self.dirAds, f), self.tmpDirAds)
+
+  # createTmpDirectories()
+  # @description: creates tmp directories
+  def createTmpDirectories():
+    # remove tmp directories if they exist.
+    self.removeTmpDirectories()
+    
+    # create the tmp directories
+    makedirs( self.tmpDirUsers )
+    makedirs( self.tmpDirAds )
+
+  # removeTmpDirectories()
+  # @description: removes tmp directories
+  def removeTmpDirectories():
+    # check if tmp directories exist. if so, delete them.
+    if ( os.path.exists( self.tmpDirUsers ) ):
+      rmtree( self.tmpDirUsers )
+    if ( os.path.exists( self.tmpDirAds ) ):
+      rmtree( self.tmpDirAds )
 
 
 

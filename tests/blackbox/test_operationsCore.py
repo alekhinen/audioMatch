@@ -72,6 +72,8 @@ class TestOperationsCore:
     assert_equals(os.path.exists('./tmp/ads/z04.wav'), True)
     assert_equals(os.path.exists('./tmp/ads/z08.wav'), True)
 
+    self.ocore1.removeTmpDirectories()
+
   def testConvertFiles2( self ):
     self.reset()
     self.ocore1.setArguments( self.args4 )
@@ -96,4 +98,6 @@ class TestOperationsCore:
     assert_equals(os.path.exists('./tmp/ads/sons.wav'), True)
     assert_equals(os.path.exists('./tmp/ads/z04.wav'), True)
     assert_equals(os.path.exists('./tmp/ads/z08.wav'), True)
+
+    self.ocore1.removeTmpDirectories()
 
