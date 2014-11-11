@@ -111,14 +111,14 @@ class OperationsCore:
     else:
       for subdir, dirs, files in os.walk( self.dirUsers ):
         for f in files:
-          copyconvert.copyConvert(f, self.tmpDirUsers)
+          copyconvert.copyConvert( os.path.join(self.dirUsers ,f), self.tmpDirUsers)
 
     if self.modeAds == 0:
       copyconvert.copyConvert(self.dirAds, self.tmpDirAds)
     else:
       for subdir, dirs, files in os.walk( self.dirAds ):
         for f in files:
-          copyconvert.copyConvert(f, self.tmpDirAds)
+          copyconvert.copyConvert( os.path.join(self.dirAds, f), self.tmpDirAds)
 
 
 

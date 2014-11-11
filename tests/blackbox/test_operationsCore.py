@@ -11,6 +11,7 @@ from nose.tools import *
 import sys
 sys.path.append('../../src')
 from operationsCore import OperationsCore
+import os.path
 
 # -----------------------------------------------------------------------------
 # TESTS
@@ -58,4 +59,4 @@ class TestOperationsCore:
     self.reset()
     self.ocore1.setArguments( self.args3 )
     self.ocore1.convertFiles()
-    assert_equals(os.path.exists('./tmp/Users/curieuse.mp3'), True)
+    assert_equals(os.path.exists('./tmp/users/curieuse.mp3'), True)
