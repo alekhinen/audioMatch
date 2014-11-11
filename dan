@@ -7,8 +7,10 @@
 
 # -----------------------------------------------------------------------------
 # imports
+
 import sys
 import shutil
+from src.recordings.database import RecordingsDatabase
 from parser    import parse
 from validator import validate
 from adder     import add
@@ -16,16 +18,21 @@ from checker   import check
 from logger    import log
 
 # -----------------------------------------------------------------------------
-# Initialize Operation Struct:
-Ocore = OperationsCore(2.5, 75000)
+# initialize all necessary components
+ocore = OperationsCore(2.5, 75000)
+database = RecordingsDatabase()
 
 
 # -----------------------------------------------------------------------------
 # Main function, acts based upon OCore['Mode']
-output = parse(OCore, sys.argv)
-log(output)
-output = validate(OCore)
-log(output)
+
+# Parse the CLI arguments.
+parsedArgs = parse( sys.argv )
+# Validate the parsed arguments.
+validate( parsedArgs )
+# Set the validated, parsed arguments inside ocore.
+ocore.setArguments( parsedArgs )
+
 output = add(OCore)
 log(output)
 output = check(OCore)

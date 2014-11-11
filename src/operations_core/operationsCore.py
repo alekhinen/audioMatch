@@ -1,31 +1,58 @@
 class OperationsCore:
 
-  # directory of original audio files
-  usersDirectory = './'
-  adsDirectory = './'
+  # ---------------------------------------------------------------------------
+  # ATTRIBUTES
+  # ---------------------------------------------------------------------------
 
+  # directory of original audio files
+  dirUsers = './'
+  dirAds = './'
+  # directory of temporary audio files
+  tmpDirUsers = './'
+  tmpDirAds = './'
+  # modes for audio files (0 == file, 1 == directory)
+  modeUsers = 0
+  modeAds = 0
+  # stage (0 == users, 1 == ads)
+  stage = 0
   # various constants used for processing + comparison
   threshold = 75000
   fragmentSize = 2.5
-
-  userMode = 0
-  adMode   = 0
-  stage    = 0
  
 
   # ---------------------------------------------------------------------------
-  # methods
+  # METHODS
+  # ---------------------------------------------------------------------------
+
+  # init()
   def __init__( self, fragmentSize, threshold ):
     self.fragmentSize = fragmentSize
     self.threshold = threshold
   
-  def setMode(self, uMode, aMode ):
-    self.userMode = uMode
-    self.adMode = aMode
-  def setStage(self, stage):
+  # setArguments()
+  # @description: sets arguments based off of CLI arguments
+  def setArguments( self, sysArgs ):
+    parsedArgs = parser.parse( sysArgs )
+    if ( validate.isValid( parsedArgs ) ):
+      self.setModes( parsedArgs[0], parsedArgs[2] )
+      self.setUsersDir( parsedArgs[1] )
+      self.setAdsDir( parsedArgs[3] )
+
+
+  # setModes()
+  def setModes( self, uMode, aMode ):
+    self.modeUsers = uMode
+    self.modeAds = aMode
+  
+  # setStage()
+  def setStage( self, stage ):
     self.stage = stage
-  def setUserDir(self, directory):
-    self.userDirectory = directory
-  def setAdDir(self, directory):
-    self.adsDirectory = directory
+
+  # setUsersDir()
+  def setUsersDir( self, directory ):
+    self.dirUsers = directory
+  
+  # setAdsDir()
+  def setAdsDir( self, directory ):
+    self.dirAds = directory
   

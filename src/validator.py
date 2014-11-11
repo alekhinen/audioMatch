@@ -4,6 +4,7 @@
 
 # -----------------------------------------------------------------------------
 # imports
+import sys
 import os, os.path
 import glob
 import sndhdr
@@ -11,7 +12,7 @@ import sndhdr
 
 # -----------------------------------------------------------------------------
 # validate()
-def validate( core ):
+def validate( sysArgs ):
   isValid = True
   errMsg = ''
 
