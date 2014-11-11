@@ -3,57 +3,75 @@
 # Validator!
 
 # -----------------------------------------------------------------------------
-# imports
+# IMPORTS 
+# -----------------------------------------------------------------------------
+
 import sys
+import os.path as path
 import os, os.path
 import glob
 import sndhdr
 
-
 # -----------------------------------------------------------------------------
-# validate()
-def validate( sysArgs ):
-  isValid = True
-  errMsg = ''
+# METHODS 
+# -----------------------------------------------------------------------------
 
-  # TODO: check if supplied is directory or file.
-  if core.getUserMode() == 1:
-    if core.getAdMode() == 1:
-      isValid = os.path.isdir(core.getUserDir()) and os.path.isdir(core.getAdDir())
-    elif core.getAdMode() == 0:
-      isValid = os.path.isdir(core.getUserDir()) and os.path.isfile(core.getAdDir)
-  elif core.getUserMode == 0:
-    if core.getAdMode == 1:
-      isValid = os.path.isfile(core.getUserDir()) and os.path.isdir(core.getAdDir())
-    elif core.getAdMode() == 0:
-      isValid = os.path.isfile(core.getUserDir()) and os.path.isfile(core.getAdDir())
+# isValid()
+# @param: parsedArgs - an array, e.g. [userMode, userDir, adMode, adDir]
+# @description: validates parsed arguments
+# @returns: boolean value for validity
+# @throws: SystemExit if invalid parsed arguments
+# @author: Nick Alekhine, Charles Perrone
+# @version: 11-11-2014
+def isValid( pArgs ):
+  isValid = True
+
+  # check if the directories actually exist
+  isValid = isValid and os.path.exists( pArgs[1] )
+  isValid = isValid and os.path.exists( pArgs[3] )
+
+  if ( not isValid ):
+    print 'ERROR: Supplied pathname(s) does not exist.'
+    sys.exit(3)
+
+  # check if supplied directories follow the format of the modes
+  if pArgs[0] == 1:
+    if pArgs[2] == 1:
+      isValid = path.isdir( pArgs[1] ) and path.isdir( pArgs[3] )
+    elif pArgs[2] == 0:
+      isValid = path.isdir( pArgs[1] ) and path.isfile( pArgs[3] )
+  elif pArgs[0] == 0:
+    if pArgs[2] == 1:
+      isValid = os.path.isfile( pArgs[1] ) and os.path.isdir( pArgs[3] )
+    elif pArgs[2] == 0:
+      isValid = os.path.isfile( pArgs[1] ) and os.path.isfile( pArgs[3] )
   else:
     isValid = False
 
   if ( not isValid ):
-    errMsg = 'ERROR: flagged a directory that was not a directory OR flagged a file that was not a file'
-
-  return errMsg
-
-  # check if the directories actually exist
-  isValid = isValid and os.path.exists( core.getUserDir() )
-  isValid = isValid and os.path.exists( core.getAdDir() )
-
-  if ( not isValid ):
-    errMsg = 'ERROR: Supplied pathname(s) does not exist.'
-
-  return errMsg
+    print 'ERROR: flagged a dir that\'s not a dir OR flagged a file that\'s not a file'
+    sys.exit(4)
 
   # if directories exist, validate all the files in each directories
   if ( isValid ):
-    isValid = isValid and validateDir( core.getUserDir() )
-    isValid = isValid and validateDir( core.getAdDir() )
+    # validation for users directory
+    if ( pArgs[0] == 0 ):
+      isValid = isValid and validateFile( pArgs[1] )
+    elif ( pArgs[0] == 1 ):
+      isValid = isValid and validateDir( pArgs[1] )
+    # validation for ads directory
+    if ( pArgs[3] == 0 ):
+      isValid = isValid and validateFile( pArgs[3] )
+    elif( pArgs[3] == 1 ):
+      isValid = isValid and validateDir( pArgs[3] )
 
   # if directories or files are not valid, update errMsg
   if ( not isValid ):
-    errMsg = 'ERROR: Supplied file(s) are not valid.'
+    print 'ERROR: Supplied file(s) are not valid.'
+    sys.exit(5)
 
-  return errMsg
+  return isValid
+
 
 
 def validateDir( dirPath ):
@@ -67,6 +85,7 @@ def validateDir( dirPath ):
       result = result and validateFile( f )
 
   return result
+
 
 def validateFile( f ):
   isValid = False

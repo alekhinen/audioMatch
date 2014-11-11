@@ -1,3 +1,7 @@
+from recordings.database import RecordingsDatabase
+import helpers.argParser as parser
+import helpers.validator as validator
+
 class OperationsCore:
 
   # ---------------------------------------------------------------------------
@@ -30,15 +34,18 @@ class OperationsCore:
     self.fragmentSize = fragmentSize
     self.threshold = threshold
   
+  # ---------------
+  # -   SETTERS   -
+  # ---------------
+
   # setArguments()
   # @description: sets arguments based off of CLI arguments
   def setArguments( self, sysArgs ):
     parsedArgs = parser.parse( sysArgs )
-    if ( validate.isValid( parsedArgs ) ):
+    if ( validator.isValid( parsedArgs ) ):
       self.setModes( parsedArgs[0], parsedArgs[2] )
       self.setUsersDir( parsedArgs[1] )
       self.setAdsDir( parsedArgs[3] )
-
 
   # setModes()
   def setModes( self, uMode, aMode ):
@@ -56,4 +63,21 @@ class OperationsCore:
   # setAdsDir()
   def setAdsDir( self, directory ):
     self.dirAds = directory
+
+  # ---------------
+  # -   GETTERS   -
+  # ---------------
+
+  # getUsersDir()
+  def getUsersDir( self ):
+    return self.dirUsers
+  # getAdsDir()
+  def getAdsDir( self ):
+    return self.dirAds
+  # getUsersMode()
+  def getUsersMode( self ):
+    return self.modeUsers
+  # getAdsMode()
+  def getAdsMode( self ):
+    return self.modeAds
   
