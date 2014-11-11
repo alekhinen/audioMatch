@@ -14,8 +14,8 @@ taDir = './tmp/userRecs/'
 
 def add( core ):
 
-  makedirs(uDir)
-  makedirs(aDir)
+  makedirs(tuDir)
+  makedirs(taDir)
 
   uMode = core.getUserMode()
   aMode = core.getAdMode()
