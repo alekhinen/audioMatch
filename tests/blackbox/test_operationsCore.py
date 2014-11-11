@@ -53,3 +53,9 @@ class TestOperationsCore:
     assert_equals( self.ocore1.getAdsMode(), 1 )
     assert_equals( self.ocore1.getUsersDir(), '../assets/D1/curieuse.mp3' )
     assert_equals( self.ocore1.getAdsDir(), '../assets/D2/' )
+
+  def testConvertFiles( self ):
+    self.reset()
+    self.ocore1.setArguments( self.args3 )
+    self.ocore1.convertFiles()
+    assert_equals(os.path.exists('./tmp/Users/curieuse.mp3'), True)

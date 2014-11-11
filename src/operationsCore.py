@@ -1,6 +1,10 @@
 from recordings.database import RecordingsDatabase
 import helpers.argParser as parser
 import helpers.validator as validator
+import helpers.copyconvert as copyconvert
+from shutil import rmtree
+from os import makedirs
+import os.path
 
 class OperationsCore:
 
@@ -12,8 +16,8 @@ class OperationsCore:
   dirUsers = './'
   dirAds = './'
   # directory of temporary audio files
-  tmpDirUsers = './'
-  tmpDirAds = './'
+  tmpDirUsers = './tmp/users/'
+  tmpDirAds = './tmp/ads/'
   # modes for audio files (0 == file, 1 == directory)
   modeUsers = 0
   modeAds = 0
@@ -80,4 +84,56 @@ class OperationsCore:
   # getAdsMode()
   def getAdsMode( self ):
     return self.modeAds
-  
+
+  # ---------------
+  # -  CONVERSION -
+  # ---------------
+
+  # convertFiles()
+  # @description: copies and converts files from directories into tmp dirs
+  def convertFiles( self ):
+    # check if tmp directories exist. if so, delete them.
+    if ( os.path.exists( self.tmpDirUsers ) ):
+      rmtree( self.tmpDirUsers )
+    if ( os.path.exists( self.tmpDirAds ) ):
+      rmtree( self.tmpDirAds )
+
+    # create the tmp directories
+    makedirs( self.tmpDirUsers )
+    makedirs( self.tmpDirAds )
+
+    # TODO: go through each file in users directory
+    #       and copyconvert them into corresponding
+    #       tmp directory.
+    # Same for the ads files.
+    if self.modeUsers == 0:
+      copyconvert.copyConvert(self.dirUsers, self.tmpDirUsers)
+    else:
+      for subdir, dirs, files in os.walk( self.dirUsers ):
+        for f in files:
+          copyconvert.copyConvert(f, self.tmpDirUsers)
+
+    if self.modeAds == 0:
+      copyconvert.copyConvert(self.dirAds, self.tmpDirAds)
+    else:
+      for subdir, dirs, files in os.walk( self.dirAds ):
+        for f in files:
+          copyconvert.copyConvert(f, self.tmpDirAds)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
