@@ -1,3 +1,5 @@
+from recordings.fragment import Fragment
+from recordings.recording import Recording
 from recordings.database import RecordingsDatabase
 import helpers.argParser as parser
 import helpers.validator as validator
@@ -150,7 +152,7 @@ class OperationsCore:
         # process audio recording data
         fragments = processor.process( os.path.join( self.tmpDirAds, f ), rec_id )
         # add all fragments to the recording + database
-        for each fragment in fragments:
+        for fragment in fragments:
           rec.appendFragment( fragment )
           self.recDB.addFragment( fragment )
         # add recording to database
