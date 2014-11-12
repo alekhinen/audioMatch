@@ -44,6 +44,17 @@ class RecordingsDatabase:
     else:
       return None
 
+  # getSimilarFragments()
+  # @param: key - an integer key value
+  # @param: threshold - an integer threshold value
+  # @description: returns a list of fragments that are nearby the key
+  # @returns: list of fragments
+  # @author: Nick Alekhine, Charles Perrone, John Meenagh
+  # @version: 12-11-2014
+  def getSimilarFragments( self, key, threshold ):
+    print 'TODO'
+
+
   # addRecording()
   # @param: fragment - an instance of Fragment
   # @description: adds a fragment to the fragments database

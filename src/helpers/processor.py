@@ -33,7 +33,7 @@ def process( filepath, rec_id ):
   aLength = len(a)
 
   # setting up chunking process
-  chunkSize = 2.5
+  chunkSize = 1
   fragmentSize = samplingRate * chunkSize
   amtFragments = math.floor( aLength / fragmentSize )
   fragments    = []
