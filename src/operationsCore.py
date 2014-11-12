@@ -168,6 +168,7 @@ class OperationsCore:
   # @assumption: recDB contains all recordings + fragments from ads
   # @assumption: ./tmp/users contains all processed recordings
   def compareUsersAgainstAds( self ):
+    print 'TODO'
     # for subdir, dirs, files in os.walk( self.tmpDirUsers ):
     #   for f in files:
     #     # create recording for the current file

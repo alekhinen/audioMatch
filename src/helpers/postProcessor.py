@@ -26,5 +26,5 @@ def computeHash( frag ):
       bvalue4 = bvalue4 + abs(frag[i])
       avalue = avalue + abs(frag[i])
 
-  return math.sqrt(bvalue**2 + bvalue2**2 + bvalue3**2 + bvalue4**2)
+  return int( round( math.sqrt(bvalue**2 + bvalue2**2 + bvalue3**2 + bvalue4**2)))
 

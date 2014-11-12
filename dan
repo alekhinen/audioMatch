@@ -9,8 +9,8 @@
 # imports
 
 import sys
-import shutil
-from src.operationsCore import OperationsCore
+sys.path.append('./src')
+from operationsCore import OperationsCore
 
 # -----------------------------------------------------------------------------
 # initialize all necessary components
