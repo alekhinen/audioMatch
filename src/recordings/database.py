@@ -10,8 +10,8 @@ class RecordingsDatabase:
   # ATTRIBUTES
   # ---------------------------------------------------------------------------
 
-  recordingsDB = {}
-  fragmentsDB = {}
+  recordings = {}
+  fragments = {}
 
   # ---------------------------------------------------------------------------
   # METHODS
@@ -19,8 +19,8 @@ class RecordingsDatabase:
 
   # initialize
   def __init__( self ):
-    self.recordingsDB = {}
-    self.fragmentsDB = {}
+    self.recordings = {}
+    self.fragments = {}
 
   # addFragment()
   # @param: fragment - an instance of Fragment
@@ -28,19 +28,19 @@ class RecordingsDatabase:
   # @returns: list of values at key (from dictionary)
   def addFragment( self, fragment ):
     fHash = fragment.hash()
-    if ( fHash in self.fragmentsDB ):
-      self.fragmentsDB[fHash].append(fragment)
+    if ( fHash in self.fragments ):
+      self.fragments[fHash].append(fragment)
     else:
-      self.fragmentsDB[fHash] = [fragment]
-    return self.fragmentsDB[fHash]
+      self.fragments[fHash] = [fragment]
+    return self.fragments[fHash]
 
   # getFragment()
   # @param: key - an integer key value
   # @description: gets the value at the supplied key from the fragments db
   # @returns: value (a list)
   def getFragment( self, key ):
-    if ( key in self.fragmentsDB ):
-      return self.fragmentsDB[ key ]
+    if ( key in self.fragments ):
+      return self.fragments[ key ]
     else:
       return None
 
@@ -50,16 +50,16 @@ class RecordingsDatabase:
   # @returns: list of values at key (from dictionary)
   def addRecording( self, recording ):
     recHash = recording.hash()
-    self.recordingsDB[recHash] = recording
-    return self.recordingsDB[recHash]
+    self.recordings[recHash] = recording
+    return self.recordings[recHash]
 
   # getRecording()
   # @param: key - an integer key value
   # @description: gets the value at the supplied key from the recordings db
   # @returns: value (a Recording)
   def getRecording( self, key ):
-    if ( key in self.recordingsDB ):
-      return self.recordingsDB[ key ]
+    if ( key in self.recordings ):
+      return self.recordings[ key ]
     else:
       return None
 

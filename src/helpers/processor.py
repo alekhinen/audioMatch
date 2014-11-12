@@ -10,6 +10,10 @@ import os.path
 import scipy.io.wavfile as wavfile
 from scipy.fftpack import fft
 from sndhdr        import what
+import postProcessor
+import sys
+sys.path.append('../')
+from recordings.fragment import Fragment
 
 # COMMENTS TO DEVELOPER
 # TODO: normalization and fft'ing the track take way too long
@@ -20,54 +24,51 @@ from sndhdr        import what
 # process()
 # @description: collects metadata and FFT's audio file
 # @returns: dictionary with FFT and metadata
-def process( filepath ):
-  # initialize result
-  result = []
-  
+def process( filepath, rec_id ):
+  # read the file
   samplingRate, data = wavfile.read( filepath )
-  # collect metadata
-  metadata = what( filepath )
-  bitsPerSamp = metadata[4]
-
-  # get audio track data
+  # get audio track data (mono)
   a = data.T
-
-  # normalize audio track over [-1, 1)
-  b = []
-  i = 0
+  # get length of amount of samples
   aLength = len(a)
-  # either hit 800 thousand iterations or go through entire data set.
-  while (i < aLength):
-    b.append( (a[i] / 256)*2-1 )
+
+  # setting up chunking process
+  chunkSize = 2.5
+  fragmentSize = samplingRate * chunkSize
+  amtFragments = math.floor( aLength / fragmentSize )
+  fragments    = []
+  
+
+  start = 0
+  end = fragmentSize
+  i = 0
+  # go through each chunk
+  while ( i < amtFragments ):
+    j = start
+    rawData = []
+    # go through each sample in chunk
+    while ( j <= end ):
+      # normalize sample on [-1, 1)
+      normalizedSample = (a[j] / 256)*2-1
+      # add to rawData
+      rawData.append( normalizedSample )
+      # increment j
+      j += 1
+    # process raw data
+    processedData = fft( rawData )
+    # compute hash of processed data
+    hashValue = postProcessor.computeHash(processedData)
+    # create a fragment
+    fragment = Fragment( rec_id, hashValue, i * chunkSize )
+    # add to list of fragments
+    fragments.append( fragment )
+
+    # increment!
+    start = end
+    end += fragmentSize
     i += 1
 
-  #Setting up chunking process
-  fragSize = samplingRate * 2.5
-  start    = 0
-  end      = fragSize
-  primList = []
-
-  # separating the data into chunks of consistent audio length
-  i = 0
-  bLength = len(b)
-  while (end < bLength + fragSize):
-    subList = []
-    while (i < bLength and i < end):
-      subList.append(b[i])
-      i += 1
-    for i in subList:
-      primList.append(i)
-    start = end
-    end = end + fragSize
-
-  for e in primList:
-   if ( e.size % 2 == 0 ):
-     result.append( fft(e) )
-
-  # update result
-  
-  print result
-  return result
+  return fragments
 
 
 

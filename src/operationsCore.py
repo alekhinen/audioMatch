@@ -134,6 +134,30 @@ class OperationsCore:
     if ( os.path.exists( self.tmpDirAds ) ):
       rmtree( self.tmpDirAds )
 
+  # ------------------------
+  # -  DATABASE ADDITIONS  -
+  # ------------------------
+
+  # addAdsToDB()
+  # @description: adds processed recordings and fragments from the tmp/ 
+  # directory for the ads 
+  def addAdsToDB( self ):
+    for subdir, dirs, files in os.walk( self.tmpDirAds ):
+      for f in files:
+        # create recording
+        rec = Recording( f, os.path.join( self.tmpDirAds, f ) )
+        rec_id = rec.hash()
+        # process audio recording data
+        fragments = processor.process( os.path.join( self.tmpDirAds, f ), rec_id )
+        # add all fragments to the recording + database
+        for each fragment in fragments:
+          rec.appendFragment( fragment )
+          self.recDB.addFragment( fragment )
+        # add recording to database
+        self.recDB.addRecording( rec )
+
+
+
   # -----------------
   # -  COMPARISONS  -
   # -----------------
