@@ -5,7 +5,7 @@ import helpers.copyconvert as copyconvert
 from shutil import rmtree
 from os import makedirs
 import os.path
-import helpers.processer as processer
+import helpers.processor as processor
 
 class OperationsCore:
 
@@ -142,6 +142,7 @@ class OperationsCore:
   # @assumption: recDB contains all recordings + fragments from ads
   # @assumption: ./tmp/users contains all processed recordings
   def compareUsersAgainstAds( self ):
+    print 'TODO'
     # process a single user recording
     # store that recording + fragments inside recDB
     # do the comparisons
