@@ -46,6 +46,7 @@ def process( filepath, rec_id ):
   while ( i < amtFragments ):
     j = start
     rawData = []
+    window = scipy.signal.hamming(fragmentSize)
     # go through each sample in chunk
     while ( j <= end ):
       # normalize sample on [-1, 1)
@@ -54,8 +55,9 @@ def process( filepath, rec_id ):
       rawData.append( normalizedSample )
       # increment j
       j += 1
+    winData = [a*b for a,b in zip(window, rawData)]
     # process raw data
-    processedData = fft( rawData )
+    processedData = fft( winData )
     # compute hash of processed data
     hashValue = postProcessor.computeHash(processedData)
     # create a fragment
