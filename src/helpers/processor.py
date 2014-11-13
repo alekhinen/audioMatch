@@ -61,7 +61,7 @@ def process( filepath, rec_id, chunkSize ):
     # compute hash of processed data
     hashValue = postProcessor.computeHash(processedData)
     # create a fragment
-    fragment = Fragment( rec_id, hashValue, i * chunkSize )
+    fragment = Fragment( rec_id, hashValue, i * (chunkSize/2) )
     # add to list of fragments
     fragments.append( fragment )
 
@@ -73,20 +73,13 @@ def process( filepath, rec_id, chunkSize ):
   #CURRENTLY: we have double the expected frames in referance to time.
   #The following code *corrects* (it may not be a problem) this by only
   #returning every other frame as an average of it and its neighbors.
-#  avgFragments = []
-#  for l in xrange(1, len(fragments), 2): #for everyother fragment
-    #Average neighbors together
-#    for k in range(0, len(fragments[l])): #for every data point in the fragment
-#      fragments[l][k] += fragments[l-1][k] + fragments[l+1][k]
-#      fragments[l][k] = fragments[l][k] / 3
-#    avgFragments.append(fragments[l])
-
-#  return avgFragments
-
-
-
+  #  avgFragments = []
+  #  l = 2
+  #  while i <
 
   return fragments
+
+
 
 
 

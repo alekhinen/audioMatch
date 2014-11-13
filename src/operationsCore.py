@@ -191,43 +191,13 @@ class OperationsCore:
             s_rec_id = sFrag.recording_id
             sRec = self.recDB.getRecording( s_rec_id )
             if ( not sRec in matchedRecordings ):
-              sFragList = sRec.fragments[int(sFrag.timeOffset * 8):]
-              curFragList = rec.fragments[int(fragment.timeOffset * 8):]
+              sFragList = sRec.fragments[int(sFrag.timeOffset * 16):]
+              curFragList = rec.fragments[int(fragment.timeOffset * 16):]
 
               isSimilar = comparator.compare( curFragList, sFragList, self.threshold )
             
               if ( isSimilar ):
-                print 'MATCH ', rec.filename, ' ', sRec.filename
+                print 'MATCH', rec.filename, sRec.filename, fragment.timeOffset, sFrag.timeOffset
                 matchedRecordings.append(sRec)
-
-
-    # process a single user recording
-    # store that recording + fragments inside recDB
-    # do the comparisons
-    #   - appends string results (e.g. "" or "MATCH ... ...") to RESULT
-    # remove that user recording + fragments from recDB
-    # repeat.
-    # return RESULT
-    
-    # for subdir, dirs, files in os.walk( self.tmpDirUsers ):
-    #   for f in files:
-    #     # TODO: Add to recordings db
-    #     #self.recDB = processer.process( f )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
