@@ -35,7 +35,8 @@ def process( filepath, rec_id, chunkSize ):
 
   # setting up chunking process
   fragmentSize = int(samplingRate * chunkSize)
-  amtFragments = math.floor(aLength / fragmentSize) # doubled for overlap
+  amtFragments = 2 * math.floor(aLength / fragmentSize) - 1
+   # doubled for overlap
   fragments    = []
   
 
@@ -65,8 +66,8 @@ def process( filepath, rec_id, chunkSize ):
     fragments.append( fragment )
 
     # increment!
-    start += fragmentSize # Both start and end now increment by
-    end += fragmentSize   # only half a fragment length at a time
+    start += fragmentSize/2 # Both start and end now increment by
+    end += fragmentSize/2   # only half a fragment length at a time
     i += 1
 
   #CURRENTLY: we have double the expected frames in referance to time.
