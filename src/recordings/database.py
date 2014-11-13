@@ -52,14 +52,14 @@ class RecordingsDatabase:
   # @author: Nick Alekhine, Charles Perrone, John Meenagh
   # @version: 12-11-2014
   def getSimilarFragments( self, key, threshold ):
-    print 'TODO'
     lowerbound = key - threshold
     upperbound = key + threshold
     result = []
-    for ( i in range(lowerbound, upperbound) ):
-      f = self.getFragment(i)
-      if ( f ):
-        result.append( f )
+    for i in range(lowerbound, upperbound):
+      flist = self.getFragment(i)
+      if ( type(flist) is list ):
+        for f in flist:
+          result.append( f )
     return result
 
 

@@ -184,7 +184,7 @@ class OperationsCore:
         for fragment in fragments:
           fHash = fragment.hash()
           sameFrags = self.recDB.getSimilarFragments( fHash, 5000 )
-
+          
           # for all similar fragments, do a linear check.
           for sFrag in sameFrags:
             s_rec_id = sFrag.recording_id
@@ -195,7 +195,7 @@ class OperationsCore:
             isSimilar = comparator.compare( curFragList, sFragList )
             
             if ( isSimilar ):
-              print 'MATCH!!!!'
+              print 'MATCH ', rec.filename, ' ', sRec.filename
 
 
 

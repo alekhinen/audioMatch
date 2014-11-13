@@ -35,13 +35,16 @@ from math import fabs as absval
 def compare(userData, adData):
   i = 0
   j = 0
-  while ( i < 5 && j < len(userData)):
+  while ( i < 5 and j < len(userData)):
     if (userData[j].hash() == adData[j].hash()):
-      i++
-      j++
+      i += 1
+      j += 1
     else:
       return False
-  if i == 5 return True else return False
+  if i == 5:
+    return True 
+  else: 
+    return False
   
 
 
