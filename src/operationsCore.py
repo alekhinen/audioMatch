@@ -29,7 +29,7 @@ class OperationsCore:
   stage = 0
   # various constants used for processing + comparison
   threshold = 75000
-  fragmentSize = 2.5
+  fragmentSize = 0.125
   # database of recordings and fragments from ads
   recDB = RecordingsDatabase()
 
@@ -151,7 +151,7 @@ class OperationsCore:
         rec = Recording( f, os.path.join( self.tmpDirAds, f ) )
         rec_id = rec.hash()
         # process audio recording data
-        fragments = processor.process( os.path.join( self.tmpDirAds, f ), rec_id )
+        fragments = processor.process( os.path.join( self.tmpDirAds, f ), rec_id, self.fragmentSize )
         # add all fragments to the recording + database
         for fragment in fragments:
           rec.appendFragment( fragment )
@@ -175,28 +175,30 @@ class OperationsCore:
         rec = Recording( f, os.path.join( self.tmpDirUsers, f) )
         rec_id = rec.hash()
         # process audio recording data
-        fragments = processor.process( os.path.join( self.tmpDirUsers, f), rec_id )
+        fragments = processor.process( os.path.join( self.tmpDirUsers, f), rec_id, self.fragmentSize )
         # add all fragments to the recording
         for fragment in fragments:
           rec.appendFragment( fragment )
 
+        matchedRecordings = []
         # find similar fragments to this recording's fragments
         for fragment in fragments:
           fHash = fragment.hash()
-          sameFrags = self.recDB.getSimilarFragments( fHash, 5000 )
+          sameFrags = self.recDB.getSimilarFragments( fHash, self.threshold )
           
           # for all similar fragments, do a linear check.
           for sFrag in sameFrags:
             s_rec_id = sFrag.recording_id
             sRec = self.recDB.getRecording( s_rec_id )
-            sFragList = sRec.fragments[sFrag.timeOffset:]
-            curFragList = rec.fragments[fragment.timeOffset:]
+            if ( not sRec in matchedRecordings ):
+              sFragList = sRec.fragments[int(sFrag.timeOffset * 8):]
+              curFragList = rec.fragments[int(fragment.timeOffset * 8):]
 
-            isSimilar = comparator.compare( curFragList, sFragList )
+              isSimilar = comparator.compare( curFragList, sFragList, self.threshold )
             
-            if ( isSimilar ):
-              print 'MATCH ', rec.filename, ' ', sRec.filename
-
+              if ( isSimilar ):
+                print 'MATCH ', rec.filename, ' ', sRec.filename
+                matchedRecordings.append(sRec)
 
 
     # process a single user recording

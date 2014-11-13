@@ -3,9 +3,9 @@
 
 import math
 def computeHash( frag ):
-  band1 = 300
-  band2 = 1200
-  band3 = 4000 
+  band1 = 31
+  band2 = 150
+  band3 = 500 
   bvalue = 0
   bvalue2 = 0
   bvalue3 = 0

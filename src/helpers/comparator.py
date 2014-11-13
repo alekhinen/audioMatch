@@ -32,16 +32,16 @@ from math import fabs as absval
 #  return "MATCH " + fileName + fileNameU 
   
 #Compares the Given data fro given fileName against all data in the database.
-def compare(userData, adData):
+def compare( userData, adData, threshold ):
   i = 0
   j = 0
-  while ( i < 5 and j < len(userData)):
-    if (userData[j].hash() == adData[j].hash()):
+  while ( i < 16 and j < len(userData) and j < len(adData) ):
+    if ( absval( userData[j].hash() - adData[j].hash() ) < threshold ):
       i += 1
       j += 1
     else:
       return False
-  if i == 5:
+  if i == 16:
     return True 
   else: 
     return False

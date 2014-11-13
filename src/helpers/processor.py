@@ -25,7 +25,7 @@ import scipy.signal as signal
 # process()
 # @description: collects metadata and FFT's audio file
 # @returns: dictionary with FFT and metadata
-def process( filepath, rec_id ):
+def process( filepath, rec_id, chunkSize ):
   # read the file
   samplingRate, data = wavfile.read( filepath )
   # get audio track data (mono)
@@ -34,8 +34,7 @@ def process( filepath, rec_id ):
   aLength = len(a)
 
   # setting up chunking process
-  chunkSize = 1
-  fragmentSize = samplingRate * chunkSize
+  fragmentSize = int(samplingRate * chunkSize)
   amtFragments = math.floor( aLength / fragmentSize )
   fragments    = []
   
