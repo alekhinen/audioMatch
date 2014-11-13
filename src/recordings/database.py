@@ -53,6 +53,14 @@ class RecordingsDatabase:
   # @version: 12-11-2014
   def getSimilarFragments( self, key, threshold ):
     print 'TODO'
+    lowerbound = key - threshold
+    upperbound = key + threshold
+    result = []
+    for ( i in range(lowerbound, upperbound) ):
+      f = self.getFragment(i)
+      if ( f ):
+        result.append( f )
+    return result
 
 
   # addRecording()
