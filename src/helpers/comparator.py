@@ -35,13 +35,15 @@ from math import fabs as absval
 def compare( userData, adData, threshold ):
   i = 0
   j = 0
-  while ( i < 16 and j < len(userData) and j < len(adData) ):
+  z = 0
+  while ( i < 40 and z <= 1 and j < len(userData) and j < len(adData) ):
     if ( absval( userData[j].hash() - adData[j].hash() ) < threshold ):
       i += 1
       j += 1
     else:
-      return False
-  if i == 16:
+      z += 1
+      #return False
+  if i == 40:
     return True 
   else: 
     return False

@@ -52,8 +52,8 @@ class RecordingsDatabase:
   # @author: Nick Alekhine, Charles Perrone, John Meenagh
   # @version: 12-11-2014
   def getSimilarFragments( self, key, threshold ):
-    lowerbound = key - threshold
-    upperbound = key + threshold
+    lowerbound = key - (threshold / 2)
+    upperbound = key + (threshold / 2)
     result = []
     for i in range(lowerbound, upperbound):
       flist = self.getFragment(i)
