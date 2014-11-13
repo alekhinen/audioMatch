@@ -35,7 +35,7 @@ def process( filepath, rec_id, chunkSize ):
 
   # setting up chunking process
   fragmentSize = int(samplingRate * chunkSize)
-  amtFragments = math.floor( aLength / fragmentSize )
+  amtFragments = math.floor(2*aLength / fragmentSize ) # doubled for overlap
   fragments    = []
   
 
@@ -65,9 +65,25 @@ def process( filepath, rec_id, chunkSize ):
     fragments.append( fragment )
 
     # increment!
-    start = end
-    end += fragmentSize
+    start += fragmentSize/2 # Both start and end now increment by
+    end += fragmentSize/2   # only half a fragment length at a time
     i += 1
+
+  #CURRENTLY: we have double the expected frames in referance to time.
+  #The following code *corrects* (it may not be a problem) this by only
+  #returning every other frame as an average of it and its neighbors.
+#  avgFragments = []
+#  for l in xrange(1, len(fragments), 2): #for everyother fragment
+    #Average neighbors together
+#    for k in range(0, len(fragments[l])): #for every data point in the fragment
+#      fragments[l][k] += fragments[l-1][k] + fragments[l+1][k]
+#      fragments[l][k] = fragments[l][k] / 3
+#    avgFragments.append(fragments[l])
+
+#  return avgFragments
+
+
+
 
   return fragments
 
