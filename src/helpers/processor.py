@@ -35,18 +35,18 @@ def process( filepath, rec_id, chunkSize ):
 
   # setting up chunking process
   fragmentSize = int(samplingRate * chunkSize)
-  amtFragments = math.floor(2*aLength / fragmentSize ) # doubled for overlap
+  amtFragments = math.floor(aLength / fragmentSize) # doubled for overlap
   fragments    = []
   
 
   start = 0
   end = fragmentSize
   i = 0
+  window = signal.hamming(fragmentSize)
   # go through each chunk
   while ( i < amtFragments ):
     j = start
     rawData = []
-    window = signal.hamming(fragmentSize)
     # go through each sample in chunk
     while ( j <= end ):
       # normalize sample on [-1, 1)
@@ -65,8 +65,8 @@ def process( filepath, rec_id, chunkSize ):
     fragments.append( fragment )
 
     # increment!
-    start += fragmentSize/2 # Both start and end now increment by
-    end += fragmentSize/2   # only half a fragment length at a time
+    start += fragmentSize # Both start and end now increment by
+    end += fragmentSize   # only half a fragment length at a time
     i += 1
 
   #CURRENTLY: we have double the expected frames in referance to time.

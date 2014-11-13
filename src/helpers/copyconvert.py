@@ -36,9 +36,9 @@ def copyConvert( filepath, folder ):
   # path to lame
   lame = '/course/cs4500f14/bin/lame'
   # initialize subprocess calls
-  subProcess1 = [lame, '-a', filepath, ffMono] 
-  subProcess2 = [lame, '--resample', '8.192',  ffMono, ffResampled]
-  subProcess3 = [lame, '--decode', ffResampled, futureFile]
+  subProcess1 = [lame, '--silent', '-a', filepath, ffMono] 
+  subProcess2 = [lame, '--silent', '--resample', '8.192',  ffMono, ffResampled]
+  subProcess3 = [lame, '--silent', '--decode', ffResampled, futureFile]
   
   # convert original to mono
   subprocess.call( subProcess1 )

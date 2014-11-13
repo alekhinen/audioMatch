@@ -14,7 +14,7 @@ def computeHash( frag ):
   
   for dat in frag:
     avalue = avalue + abs(dat)
-  avalue = float(100/(avalue/len(frag)))
+  avalue = float(1000/(avalue/len(frag)))
   
 
 

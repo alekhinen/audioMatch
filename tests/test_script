@@ -1,7 +1,7 @@
 import sys
 sys.path.append('./src')
 from operationsCore import OperationsCore
-ocore = OperationsCore(.125, 48000)
+ocore = OperationsCore(.125, 12000)
 ocore.setArguments(['', '-d', './tests/assets/D1', '-d', './tests/assets/D2'])
 ocore.convertFiles()
 ocore.addAdsToDB()
@@ -14,7 +14,7 @@ TEST 2
 import sys
 sys.path.append('./src')
 from operationsCore import OperationsCore
-ocore = OperationsCore(.125, 48000)
+ocore = OperationsCore(.125, 12000)
 ocore.setArguments(['', '-d', './tests/assets/D3', '-d', './tests/assets/D4'])
 ocore.convertFiles()
 ocore.addAdsToDB()
