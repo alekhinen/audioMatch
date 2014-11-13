@@ -1,13 +1,14 @@
-from recordings.fragment import Fragment
+from recordings.fragment  import Fragment
 from recordings.recording import Recording
-from recordings.database import RecordingsDatabase
-import helpers.argParser as parser
-import helpers.validator as validator
+from recordings.database  import RecordingsDatabase
+import helpers.argParser   as parser
+import helpers.validator   as validator
 import helpers.copyconvert as copyconvert
+import helpers.comparator  as comparator
+import helpers.processor   as processor
 from shutil import rmtree
-from os import makedirs
+from os     import makedirs
 import os.path
-import helpers.processor as processor
 
 class OperationsCore:
 
@@ -168,28 +169,33 @@ class OperationsCore:
   # @assumption: recDB contains all recordings + fragments from ads
   # @assumption: ./tmp/users contains all processed recordings
   def compareUsersAgainstAds( self ):
-    print 'TODO'
-    # for subdir, dirs, files in os.walk( self.tmpDirUsers ):
-    #   for f in files:
-    #     # create recording for the current file
-    #     rec = Recording( f, os.path.join( self.tmpDirUsers, f) )
-    #     rec_id = rec.hash()
-    #     # process audio recording data
-    #     fragments = processor.process( os.path.join( self.tmpDirUsers, f), rec_id )
-    #     # add all fragments to the recording + database
-    #     for fragment in fragments:
-    #       rec.appendFragment( fragment )
-    #       self.recDB.addFragment( fragment )
-    #     # add recording to database
-    #     self.recDB.addRecording( rec )
+    for subdir, dirs, files in os.walk( self.tmpDirUsers ):
+      for f in files:
+        # create recording for the current file
+        rec = Recording( f, os.path.join( self.tmpDirUsers, f) )
+        rec_id = rec.hash()
+        # process audio recording data
+        fragments = processor.process( os.path.join( self.tmpDirUsers, f), rec_id )
+        # add all fragments to the recording
+        for fragment in fragments:
+          rec.appendFragment( fragment )
 
-    #     for fragment in fragments:
-    #       fHash = fragment.hash()
-    #       sameFrags = self.recDB.getSimilarFragments( fHash, 50000 )
-    #       if (  > )
+        # find similar fragments to this recording's fragments
+        for fragment in fragments:
+          fHash = fragment.hash()
+          sameFrags = self.recDB.getSimilarFragments( fHash, 5000 )
 
-    #     # TODO: delete recording from recDB
-    #     # TODO: delete fragments in recording from recDB
+          # for all similar fragments, do a linear check.
+          for sFrag in sameFrags:
+            s_rec_id = sFrag.recording_id
+            sRec = self.recDB.getRecording( s_rec_id )
+            sFragList = sRec.fragments[sFrag.timeOffset:]
+            curFragList = rec.fragments[fragment.timeOffset:]
+
+            isSimilar = comparator.compare( curFragList, sFragList )
+            
+            if ( isSimilar ):
+              print 'MATCH!!!!'
 
 
 
