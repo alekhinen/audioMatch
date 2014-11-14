@@ -136,6 +136,8 @@ class OperationsCore:
       rmtree( self.tmpDirUsers )
     if ( os.path.exists( self.tmpDirAds ) ):
       rmtree( self.tmpDirAds )
+    if ( os.path.exists( './tmp' ) ):
+      rmtree( './tmp' )
 
   # ------------------------
   # -  DATABASE ADDITIONS  -

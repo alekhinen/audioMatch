@@ -29,3 +29,5 @@ ocore.addAdsToDB()
 # Processes + adds 1 user recording + fragments at a time. 
 # Compares each user recording against all users.
 ocore.compareUsersAgainstAds()
+# Clean up
+ocore.removeTmpDirectories()
