@@ -1,6 +1,6 @@
-# AudioMG: MATCH GOOD!
-#
-# Validator!
+# @module: validator
+# @description: validates command-line stuff
+# @version: 13-11-2014
 
 # -----------------------------------------------------------------------------
 # IMPORTS 

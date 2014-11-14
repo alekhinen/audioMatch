@@ -1,17 +1,36 @@
-#AudioMG
-#PostProcessor 11/11/14
+# @module: postProcessor
+# @description: processes fft'd data.
+# @version: 14-11-2014
 
+# -----------------------------------------------------------------------------
+# imports
 import math
 
-def mag (cnum):
+
+# -----------------------------------------------------------------------------
+# mag()
+# @description: calculates the magnitude of a given number
+# @param: cnum - list of fragments
+# @author: Zig
+# @return: number
+def mag( cnum ):
   return math.sqrt(cnum.real**2 + cnum.imag**2)
 
+
+# -----------------------------------------------------------------------------
+# computeHash()
+# @description: calculates the hashvalue from an fft'd fragment
+# @param: frag - a list of fft'd samples
+# @author: Zig, Nick Alekhine
+# @return: integer
 def computeHash( frag ):
+  # OLD BOUNDARIES
   #boundaries = [30,150,500,2500]
   #weights    = [1, 1, 1, 1]
   #binValues  = [0 ,0, 0, 0]
-#2.0
-#  boundaries = [28, 47, 84, 149, 233, 396, 745, 1050]
+  # 2.0
+  #boundaries = [28, 47, 84, 149, 233, 396, 745, 1050]
+  # NEW BOUNDARIES
   boundaries = [20, 40, 80, 160, 320, 640, 1280, 2560, 5120]
   weights    = [0.5, 0.7, 0.9, 1, 1.1, 1.2, 1.2, 1.1, 1]
   binValues  = [0, 0, 0, 0, 0, 0, 0, 0, 0]

@@ -161,8 +161,6 @@ class OperationsCore:
         # add recording to database
         self.recDB.addRecording( rec )
 
-
-
   # -----------------
   # -  COMPARISONS  -
   # -----------------
