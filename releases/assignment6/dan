@@ -14,8 +14,8 @@ from operationsCore import OperationsCore
 
 # -----------------------------------------------------------------------------
 # initialize all necessary components
-ocore = OperationsCore(.125, 1200)
-
+#ocore = OperationsCore(.125, 1800)
+ocore = OperationsCore(.125, 1600)
 
 # -----------------------------------------------------------------------------
 # Main function, acts based upon OCore['Mode']

@@ -20,14 +20,14 @@ def compare( userData, adData, threshold ):
   i = 0
   j = 0
   z = 0
-  while ( i < 40 and z <= 1 and j < len(userData) and j < len(adData) ):
+  while ( i < 80 and z <= 8 and j < len(userData) and j < len(adData) ):
     if ( absval( userData[j].hash() - adData[j].hash() ) < threshold ):
       i += 1
       j += 1
     else:
       z += 1
       #return False
-  if i == 40:
+  if i == 80:
     return True 
   else: 
     return False
