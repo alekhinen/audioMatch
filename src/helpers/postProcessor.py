@@ -31,12 +31,13 @@ def computeHash( frag ):
   # 2.0
   #boundaries = [28, 47, 84, 149, 233, 396, 745, 1050]
   # NEW BOUNDARIES
-  boundaries = [20, 40, 80, 160, 320, 640, 1280, 2560, 5120]
-  weights    = [0.1, 0.25, 0.75, 1, 1.1, 1.2, 1.2, .75, 0.1]
-  binValues  = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+  boundaries = [20, 40, 80, 160, 320, 640, 1280]
+  weights    = [0.25, 0.75, 1.1, 1.2, 1.1, .75, .25]
+  binValues  = [0, 0, 0, 0, 0, 0, 0]
 
 
   avalue = 0
+  maxMag = 0
   for dat in frag:
     avalue = avalue + mag(dat)
   avalue = float(100/(avalue/len(frag)))
@@ -53,4 +54,5 @@ def computeHash( frag ):
     result += weights[weightInterval] * el**2
     weightInterval += 1
   result = int( round( math.sqrt( result )))
+
   return result

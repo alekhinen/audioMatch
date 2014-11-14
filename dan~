@@ -14,8 +14,8 @@ from operationsCore import OperationsCore
 
 # -----------------------------------------------------------------------------
 # initialize all necessary components
-ocore = OperationsCore(.125, 6000)
-
+#ocore = OperationsCore(.125, 1800)
+ocore = OperationsCore(.125, 1800)
 
 # -----------------------------------------------------------------------------
 # Main function, acts based upon OCore['Mode']
@@ -29,3 +29,5 @@ ocore.addAdsToDB()
 # Processes + adds 1 user recording + fragments at a time. 
 # Compares each user recording against all users.
 ocore.compareUsersAgainstAds()
+# Clean up
+ocore.removeTmpDirectories()
