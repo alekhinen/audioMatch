@@ -53,10 +53,10 @@ Github - https://github.com/alekhinen/audioMatch.git
  Setup
 -------
 
-After downloading the submission, unpack the .tar.gz file in
+After downloading the submission, unpack the .tgz file in
 the command line with the tar command:
 
-  tar -zxvf assignment6.tar.gz
+  tar -zxvf assignment6.tgz
 
 Enter the assignment6 directory with the cd command and run the
 Dan app with the command(s) listed in 'Command Line Arguments' section below.
@@ -158,18 +158,19 @@ dan             -(file) executable file to take the arguments and run the app
 src             -(directory) directory containing the program source code 
 
 -Contents of the 'src' directory-
-operations_core -(directory) contains the code for the core data type 
-comparator.py   -(PY file) compares the segments of parsed files
-copyconvert.py  -(PY file) copies converted files into /tmp directory
-logger.py       -(PY file) outputs text to the command line
-argParser.py    -(PY file) takes input from the command line
-processor.py    -(PY file) processes files into fft's
-postProcessor   -(PY file) hashes and organizes audio fragments 
-validator.py    -(PY file) checks whether command line input is valid
+helpers/argParser.py     - parses command line input
+helpers/comparator.py    - compares the segments of parsed files
+helpers/copyconvert.py   - copies converted files into /tmp directory
+helpers/postProcessor.py - hashes and organizes audio fragments 
+helpers/processor.py     - processes files into fft's
+helpers/validator.py     - checks whether command line input is valid
 
--Contents of the 'operations_core' directory-
-operationsCore.py     -(PY file) defines the Operations Core data type
-recordingsDatabase.py -(PY file) defines the database of audio recordings
+recordings/fragment.py   - contains the Fragment class
+recordings/recording.py  - contains the Recording class
+recordings/database.py   - contains the database class of Fragments 
+                           + Recordings
+
+operationsCore.py        - contains the code for the core data type
 
 
 -----------
@@ -181,6 +182,15 @@ The following packages were used in addition to the Standard Python Library:
 NumPy
 SciPy
 nose (tests)
+
+
+--------------
+ Dependencies
+--------------
+
+The following dependencies were used in the application:
+
+lame
 
 
 -------
