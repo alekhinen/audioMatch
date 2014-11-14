@@ -118,8 +118,6 @@ def validateFile( f ):
 
   # if file is a .mp3
   elif f.endswith('.mp3'):
-    # TODO: read this
-    # https://stackoverflow.com/questions/3503879/assign-output-of-os-system-to-a-variable-and-prevent-it-from-being-displayed-on
     fMeta = os.popen('file %s' % f ).read()
     # check if it is 'MPEG'
     isValid = 'MPEG' in fMeta

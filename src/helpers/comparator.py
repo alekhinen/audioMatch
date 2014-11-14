@@ -14,7 +14,7 @@ from math import fabs as absval
 # @param userData - list of fragments
 # @param adData   - list of fragments
 # @param threshold - an integer
-# @author Zig
+# @author Michael Chadbourne
 # @returns boolean
 def compare( userData, adData, threshold ):
   i = 0

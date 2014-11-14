@@ -11,7 +11,7 @@ import math
 # mag()
 # @description: calculates the magnitude of a given number
 # @param: cnum - list of fragments
-# @author: Zig
+# @author: Michael Chadbourne
 # @return: number
 def mag( cnum ):
   return math.sqrt(cnum.real**2 + cnum.imag**2)
@@ -21,16 +21,9 @@ def mag( cnum ):
 # computeHash()
 # @description: calculates the hashvalue from an fft'd fragment
 # @param: frag - a list of fft'd samples
-# @author: Zig, Nick Alekhine
+# @author: Michael Chadbourne, Nick Alekhine
 # @return: integer
 def computeHash( frag ):
-  # OLD BOUNDARIES
-  #boundaries = [30,150,500,2500]
-  #weights    = [1, 1, 1, 1]
-  #binValues  = [0 ,0, 0, 0]
-  # 2.0
-  #boundaries = [28, 47, 84, 149, 233, 396, 745, 1050]
-  # NEW BOUNDARIES
   boundaries = [20, 40, 80, 160, 320, 640, 1280]
   weights    = [0.25, 0.75, 1.1, 1.2, 1.1, .75, .25]
   binValues  = [0, 0, 0, 0, 0, 0, 0]

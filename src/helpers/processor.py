@@ -16,10 +16,6 @@ sys.path.append('../')
 from recordings.fragment import Fragment
 import scipy.signal as signal
 
-# COMMENTS TO DEVELOPER
-# TODO: normalization and fft'ing the track take way too long
-# see line 51 and line 63 onward for where things could be improved.
-
 
 # -----------------------------------------------------------------------------
 # process()
@@ -69,13 +65,6 @@ def process( filepath, rec_id, chunkSize ):
     start += fragmentSize/2 # Both start and end now increment by
     end += fragmentSize/2   # only half a fragment length at a time
     i += 1
-
-  #CURRENTLY: we have double the expected frames in referance to time.
-  #The following code *corrects* (it may not be a problem) this by only
-  #returning every other frame as an average of it and its neighbors.
-  #  avgFragments = []
-  #  l = 2
-  #  while i <
 
   return fragments
 
