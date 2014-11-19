@@ -48,6 +48,10 @@ class OperationsCore:
 
   # setArguments()
   # @description: sets arguments based off of CLI arguments
+  # @param: sysArgs - an array of system arguments
+  # @returns: void
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def setArguments( self, sysArgs ):
     parsedArgs = parser.parse( sysArgs )
     if ( validator.isValid( parsedArgs ) ):
@@ -56,19 +60,40 @@ class OperationsCore:
       self.setAdsDir( parsedArgs[3] )
 
   # setModes()
+  # @description: sets the modes 
+  # @param: uMode - the user mode (0 is file, 1 is directory)
+  # @param: aMode - the ad mode (0 is file, 1 is directory)
+  # @returns: void
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def setModes( self, uMode, aMode ):
     self.modeUsers = uMode
     self.modeAds = aMode
   
   # setStage()
+  # @description: sets the stage
+  # @param: stage - TODO: what is this?
+  # @returns: void
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def setStage( self, stage ):
     self.stage = stage
 
   # setUsersDir()
+  # @description: sets the users directory
+  # @param: directory - filepath to users directory
+  # @returns: void
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def setUsersDir( self, directory ):
     self.dirUsers = directory
   
   # setAdsDir()
+  # @descrption: sets the ads directory
+  # @param: directory - filepath to ads directory
+  # @returns: void
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def setAdsDir( self, directory ):
     self.dirAds = directory
 
@@ -77,21 +102,50 @@ class OperationsCore:
   # ---------------
 
   # getUsersDir()
+  # @description: gets the users directory
+  # @returns: string filepath
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def getUsersDir( self ):
     return self.dirUsers
+
   # getAdsDir()
+  # @description: gets the ads directory
+  # @returns: string filepath
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def getAdsDir( self ):
     return self.dirAds
+
   # getUsersMode()
+  # @description: get the users mode
+  # @returns: int mode
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def getUsersMode( self ):
     return self.modeUsers
+
   # getAdsMode()
+  # @description: get the ads mode
+  # @returns: int mode
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def getAdsMode( self ):
     return self.modeAds
+
   # getTmpAdsDir()
+  # @description: get the temporary directory for ads
+  # @returns: string filepath
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def getTmpAdsDir( self ):
     return self.tmpDirAds
+
   # getTmpUsersDir()
+  # @description: get the temporary directory for users
+  # @returns: string filepath
+  # @author: Nick Alekhine, Charles Perrone
+  # @verion: 11-11-2014
   def getTmpUsersDir( self ):
     return self.tmpDirUsers
 
