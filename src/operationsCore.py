@@ -154,36 +154,50 @@ class OperationsCore:
   # ----------------
 
   # convertFiles()
-  # @description: copies and converts files from directories into tmp dirs
+  # @description: copies and converts files from users and ads directories
+  #               over to their respective tmp/ directories
+  # @returns: void
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def convertFiles( self ):
     self.createTmpDirectories()
 
-    if self.modeUsers == 0:
-      copyconvert.copyConvert(self.dirUsers, self.tmpDirUsers)
+    # if user mode is set to file, copy that file over to users /tmp
+    if ( self.modeUsers == 0 ):
+      copyconvert.copyConvert( self.dirUsers, self.tmpDirUsers )
+    # else, copy the files from users over to users /tmp
     else:
       for subdir, dirs, files in os.walk( self.dirUsers ):
         for f in files:
-          copyconvert.copyConvert( os.path.join(self.dirUsers ,f), self.tmpDirUsers)
-
+          fullFile = os.path.join( self.dirUsers ,f )
+          copyconvert.copyConvert( fullFile, self.tmpDirUsers )
+    # if ads mode is set to file, copy that file over to ads /tmp
     if self.modeAds == 0:
       copyconvert.copyConvert(self.dirAds, self.tmpDirAds)
+    # else, copy the files from ads over to ads /tmp
     else:
       for subdir, dirs, files in os.walk( self.dirAds ):
         for f in files:
-          copyconvert.copyConvert( os.path.join(self.dirAds, f), self.tmpDirAds)
+          fullFile = os.path.join( self.dirAds, f )
+          copyconvert.copyConvert( fullFile, self.tmpDirAds )
 
   # createTmpDirectories()
   # @description: creates tmp directories
+  # @returns: void
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def createTmpDirectories( self ):
     # remove tmp directories if they exist.
     self.removeTmpDirectories()
-    
     # create the tmp directories
     makedirs( self.tmpDirUsers )
     makedirs( self.tmpDirAds )
 
   # removeTmpDirectories()
   # @description: removes tmp directories
+  # @returns: void
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def removeTmpDirectories( self ):
     # check if tmp directories exist. if so, delete them.
     if ( os.path.exists( self.tmpDirUsers ) ):
@@ -199,15 +213,19 @@ class OperationsCore:
 
   # addAdsToDB()
   # @description: adds processed recordings and fragments from the tmp/ 
-  # directory for the ads 
+  #               directory for the ads.
+  # @returns: void
+  # @author: Nick Alekhine, Charles Perrone
+  # @version: 11-11-2014
   def addAdsToDB( self ):
     for subdir, dirs, files in os.walk( self.tmpDirAds ):
       for f in files:
-        # create recording
+        # create a recording
         rec = Recording( f, os.path.join( self.tmpDirAds, f ) )
-        rec_id = rec.hash()
+        recID = rec.hash()
+        fullFile = os.path.join( self.tmpDirAds, f )
         # process audio recording data
-        fragments = processor.process( os.path.join( self.tmpDirAds, f ), rec_id, self.fragmentSize )
+        fragments = processor.process( fullFile, recID, self.fragmentSize )
         # add all fragments to the recording + database
         for fragment in fragments:
           rec.appendFragment( fragment )
