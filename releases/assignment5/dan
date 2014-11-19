@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+
+# AudioMG: MATCH GOOD!
+# @authors: Nick Alekhine,
+#           Michael Chadbourne,
+#           John Meenagh,
+#           Charles Perrone
+# @description: Designed to identify files in one directory with matching
+#               segments in the other.
+# @version: 30-10-2014
+
+# -----------------------------------------------------------------------------
+# imports
+import sys
+import shutil
+from parser    import parse
+from validator import validate
+from adder     import add
+from checker   import check
+from logger    import log
+
+# -----------------------------------------------------------------------------
+# Initialize Operation Struct:
+OCore = {
+  'U_Dir':"..",
+  'A_Dir':".",
+  'Mode1': 0,
+  'Mode2': 0,
+  'Stage': 0,
+  'Threshold':100,
+  'FSize':2.5,
+  'FlatR':0.8,
+  'database': {
+    'userRecs': [],
+    'adRecs': []
+  },
+  'Log':[]
+}
+
+# -----------------------------------------------------------------------------
+# Main function, acts based upon OCore['Mode']
+OCore, output = parse(OCore, sys.argv)
+log(output)
+OCore, output = validate(OCore)
+log(output)
+OCore, output = add(OCore)
+log(output)
+output = check(OCore)
+log(output)
+
+# clean up temporary directory
+shutil.rmtree('./tmp/')

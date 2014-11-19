@@ -1,0 +1,226 @@
+Last Updated: 11/12/14
+
+-------------
+ Change Log
+-------------
+
+10/10/14 -Assignment - 4
+-Compares FFTs of two files
+
+10/22/14 - Assignment - 5 
+-Overhauled program structure
+-Added option to compare directories of files
+
+11/14/14 - Assignment - 6 
+-Overhauled program structure (again)
+-Added considerations for fragmenting file
+-Added considerations for efficiency
+-Removed extraneous files and tests from submitted version
+
+-------------
+ Description
+-------------
+
+Dan is a prototype app for the Software Development semester project.
+Dan was created to fulfill the requirements of Assignment 6, listed here:
+
+http://www.ccs.neu.edu/course/cs4500f14/assignment6.txt
+
+Dan is an audio recognition software designed to detect the use
+of copyright protected music in digital audio and video media. The
+full version of this software will be able to scan large collections
+of multiple file types and search for multiple potential violations.
+For this prototype, the project scope is limited to detecting similarity
+between two wav files of the same length. To complete the requirements
+of assignment 5, the prototype is also able to compare the contents
+of a directory all at once. To complete the requirements of assignment
+6, the project was updated to account for time efficiency.
+
+
+--------------
+ Project Team
+--------------
+
+Nick Alekhine       - alekhine.n@husky.neu.edu
+Michael Chadbourne  - chadbourne.m@husky.neu.edu
+Charles Perrone     - perrone.c@husky.neu.edu
+John Meenagh        - jpmeenagh@gmail.com
+
+Github - https://github.com/alekhinen/audioMatch.git
+
+
+-------
+ Setup
+-------
+
+After downloading the submission, unpack the .tgz file in
+the command line with the tar command:
+
+  tar -zxvf assignment6.tgz
+
+Enter the assignment6 directory with the cd command and run the
+Dan app with the command(s) listed in 'Command Line Arguments' section below.
+
+
+------------------------
+ Command Line Arguments
+------------------------
+
+Command Forms:
+
+    ./dan -f <pathname> -f <pathname>
+    ./dan -d <pathname> -d <pathname>
+    ./dan -f <pathname> -d <pathname>
+    ./dan -d <pathname> -f <pathname>
+
+<pathname> should be existing Linux path names that end in '.wav' or '.mp3'
+
+-if the <pathname> is preceded by a "-d" it must be an existing directory
+where all the files within would be valid as a single file input (-f)
+-if the <pathname> is preceded by a "-f" and ends in ".wav" the file
+must be in little-endian (RIFF) WAVE format with PCM encoding (AudioFormat
+ 1), stereo or mono, 8- or 16-bit samples, with a sampling rate of 11.025,
+22.05, 44.1, or 48 kHz
+-if the <pathname> is preceded by a "-f" and ends in ".mp3" the file
+must be in MPEG-1 Audio Layer III format (MP3)
+
+If both files are directories, a comparison will be made between each
+file in the first directory against each file in the second. The
+comparisons will print in order such that the first file in the first
+directory will be compared to the first file in the second directory
+followed by the the first file in the first directory compared to the
+second file in the second directory. Once the first file has been
+compared to each file in the second directory in this manner, the
+second file in the first directory will then be compared to the first
+file in the second, and so on in that fashion, until all comparisons
+have been made between each file in the two directories.
+
+If one of the <pathname>s provided is a directory and the other is
+a file, the single file will be compared against each file in the
+directory.
+
+Example:
+
+        ./dan -f /audio/z01.wav -d /audioMP3s
+
+This command would compare the .wav file z01.wav against each file in
+the audioMP3 directory.
+
+
+--------
+ Output
+--------
+
+If the two files are found to NOT contain any similar audio fragments of
+at least 5 seconds, the program will print nothing and terminate with an exit 
+status of 0.
+
+If the two files ARE found to contain at least one similar audio fragment 
+of at least 5 seconds, the program will print "Match" followed by a space, 
+followed by the short name of the first file, followed by a space, followed 
+by the short name of the second file, followed by a newline to the command 
+line and terminate with an exit status of 0.
+
+The following Errors may occur:
+
+-if a provided file path does not exist-
+Prints 'ERROR: Supplied pathname(s) does not exist.'
+followed by a newline with an exit status of 1.
+
+-if a provided file path is mis-flagged as directory or file (-f or -d)-
+"Error: flagged a directory that was not a directory or flagged a file
+that was not a file"
+followed by a newline with an exit status of 1.
+
+-if a provided file path is not a valid format-
+"Error: Supplied file(s) are not valid"
+followed by a newline with an exit status of 1.
+
+-if anything other than two flags and two paths are provided-
+"Error: Exactly two sets of flags and paths have to be specified"
+followed by a newline with an exit status of 1.
+
+-if anything other than -f or -d are used as flags-
+"Error: improper flagtype supplied"
+followed by a newline with an exit status of 1.
+
+
+------------------
+ Project Contents
+------------------
+
+The project should contain the following files:
+
+README          -(file) a readme for the dan app
+__init__.py     -(PY file) tells the Python where to import modules from
+dan             -(file) executable file to take the arguments and run the app
+.gitignore      -(GITIGNORE file) an unnamed file to tell GitHub what to save
+src             -(directory) directory containing the program source code 
+
+-Contents of the 'src' directory-
+helpers/argParser.py     - parses command line input
+helpers/comparator.py    - compares the segments of parsed files
+helpers/copyconvert.py   - copies converted files into /tmp directory
+helpers/postProcessor.py - hashes and organizes audio fragments 
+helpers/processor.py     - processes files into fft's
+helpers/validator.py     - checks whether command line input is valid
+
+recordings/fragment.py   - contains the Fragment class
+recordings/recording.py  - contains the Recording class
+recordings/database.py   - contains the database class of Fragments 
+                           + Recordings
+
+operationsCore.py        - contains the code for the core data type
+
+
+-----------
+ Packages
+-----------
+
+The following packages were used in addition to the Standard Python Library:
+
+NumPy
+SciPy
+nose (tests)
+
+
+--------------
+ Dependencies
+--------------
+
+The following dependencies were used in the application:
+
+lame
+
+
+-------
+ Tests
+-------
+
+We created a directory of unit tests that uses the uses the nose testing
+framework to assert the correctness of the basic functions. For purposes 
+of file size and efficieny, the directory was removed from the submitted
+version of the assignment, as requested. 
+
+
+-----------
+ Algorithm
+-----------
+
+To compare files, the program converts mp3 and wav files using the Fast
+Fourier Transform function in the SciPy Library. This converts the file
+to amplitude over frequency. We then slice that data up into fragments 
+of regular size and put all the values into hashtables that consolidates 
+equivalent data. We start with the first recording in the first directory 
+and see what other recordings contain the same hash value as the first 
+fragment. We then go to each of those recordings and see if any share 
+the next few fragments with the first file as well. If any continuously 
+share a 5 second interval then that information is saved. If any fragments 
+don't match, discard the rest of the comparison. Once all recordings that 
+contain the starting fragment are done comparing, step to the next fragment 
+and look for recordings that share those in the same fashion.    
+
+
+-------------------------------------
+ 
+-------------------------------------
