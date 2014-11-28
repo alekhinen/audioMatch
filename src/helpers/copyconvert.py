@@ -25,7 +25,27 @@ def copyConvert( filepath, folder ):
   basename = path.basename(filepath)
   filename = path.splitext(basename)[0]
   fileExtension = path.splitext(basename)[1]
-  
+
+  # if file is an ogg
+  if ( fileExtension == '.ogg' ):
+    convertOgg( filepath, folder, filename, fileExtension )
+  # else file is either an mp3 or wav
+  else:
+    convertWavMp3( filepath, folder, filename, fileExtension )
+
+def convertOgg( filepath, folder, filename, fileExtension ):
+  # create a decoded ogg file in WAV format.
+  ffWav = folder + filename + '_ogg.wav'
+  subProcess0 = ['oggdec', filepath, '-b', '16', '-o', ffWav]
+  # converts ogg file to a 16-bit, little-endian, wav file.
+  subprocess.call( subProcess0 )
+
+  # pass the converted ogg file as the "original" filepath
+  convertWavMp3( ffWav, folder, filename, fileExtension )
+  # remove converted file after it has been converted to canonical form.
+  remove(ffWav)
+
+def convertWavMp3( filepath, folder, filename, fileExtension ):
   # create the future filepath
   futureFile = folder + filename + fileExtension
   ffMono = futureFile + '_mono.mp3'
