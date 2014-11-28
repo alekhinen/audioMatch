@@ -36,7 +36,7 @@ def copyConvert( filepath, folder ):
 def convertOgg( filepath, folder, filename, fileExtension ):
   # create a decoded ogg file in WAV format.
   ffWav = folder + filename + '_ogg.wav'
-  subProcess0 = ['oggdec', filepath, '-b', '16', '-o', ffWav]
+  subProcess0 = ['oggdec', '-Q', filepath, '-b', '16', '-o', ffWav]
   # converts ogg file to a 16-bit, little-endian, wav file.
   subprocess.call( subProcess0 )
 
