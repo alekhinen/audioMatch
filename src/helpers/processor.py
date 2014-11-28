@@ -14,13 +14,11 @@ import postProcessor
 import sys
 sys.path.append('../')
 from recordings.fragment import Fragment
-import scipy.signal as signal
-
 
 # -----------------------------------------------------------------------------
 # process()
-# @description: collects metadata and FFT's audio file
-# @returns: dictionary with FFT and metadata
+# @description: fragments and FFT's audio file
+# @returns: list of fragments
 # @Theta: A(L+Llog(L)+computeHash(L)+5) 
 #   Where A = amount of Fragments; L = length of fragment
 def process( filepath, rec_id, chunkSize ):
@@ -41,7 +39,6 @@ def process( filepath, rec_id, chunkSize ):
   start = 0  # Holder for the start position of the current fragment
   end = fragmentSize #Holder for the end position in the full file
   i = 0
-  window = signal.hamming(fragmentSize)
   # go through each chunk
   while ( i < amtFragments ):
     j = start # j tracks the offset in the full file

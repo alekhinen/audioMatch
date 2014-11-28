@@ -30,8 +30,6 @@ def copyConvert( filepath, folder ):
   futureFile = folder + filename + fileExtension
   ffMono = futureFile + '_mono.mp3'
   ffResampled = futureFile + '_resampled.mp3'
-
-  # TODO: absolute filepath to lame. unsure if this is the right thing to do.
   
   # path to lame
   lame = '/course/cs4500f14/bin/lame'
