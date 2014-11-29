@@ -1,0 +1,10 @@
+To Complete:
+- Ensure that there are rwx permissions on current 
+  directory when releasing app. 
+  (worked on, UNTESTED)
+
+- Ensure that Ogg is fully supported. 
+  (worked on, TESTED)
+
+- Increase performance of app by an order of magnitude.
+  (unknown, unknown)
