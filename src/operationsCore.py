@@ -189,6 +189,8 @@ class OperationsCore:
   # @author: Nick Alekhine, Charles Perrone
   # @version: 11-11-2014
   def createTmpDirectories( self ):
+    # set read/write/execute  permissions on current directory
+    chmod( './', 0777 )
     # remove tmp directories if they exist.
     self.removeTmpDirectories()
     # create the tmp directories
