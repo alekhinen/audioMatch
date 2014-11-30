@@ -57,7 +57,8 @@ def convertWavMp3( filepath, folder, filename, fileExtension ):
   subProcess1 = [lame, '--silent', '-a', filepath, ffMono] 
   subProcess2 = [lame, '--silent', '--resample', '8.192',  ffMono, ffResampled]
   subProcess3 = [lame, '--silent', '--decode', ffResampled, futureFile]
-  
+
+
   # convert original to mono
   subprocess.call( subProcess1 )
   # convert mono to 8192 samples/sec

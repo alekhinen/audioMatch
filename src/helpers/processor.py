@@ -22,6 +22,7 @@ from recordings.fragment import Fragment
 # @Theta: A(L+Llog(L)+computeHash(L)+5) 
 #   Where A = amount of Fragments; L = length of fragment
 def process( filepath, rec_id, chunkSize ):
+
   # read the file
   samplingRate, data = wavfile.read( filepath )
   # get audio track data (mono)
