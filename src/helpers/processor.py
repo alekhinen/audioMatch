@@ -14,14 +14,15 @@ import postProcessor
 import sys
 sys.path.append('../')
 from recordings.fragment import Fragment
-import scipy.signal as signal
-
 
 # -----------------------------------------------------------------------------
 # process()
-# @description: collects metadata and FFT's audio file
-# @returns: dictionary with FFT and metadata
+# @description: fragments and FFT's audio file
+# @returns: list of fragments
+# @Theta: A(L+Llog(L)+computeHash(L)+5) 
+#   Where A = amount of Fragments; L = length of fragment
 def process( filepath, rec_id, chunkSize ):
+
   # read the file
   samplingRate, data = wavfile.read( filepath )
   # get audio track data (mono)
@@ -35,15 +36,14 @@ def process( filepath, rec_id, chunkSize ):
    # doubled for overlap
   fragments    = []
   
-
-  start = 0
-  end = fragmentSize
+  #positions are held a fragment size apart from eachother throughout
+  start = 0  # Holder for the start position of the current fragment
+  end = fragmentSize #Holder for the end position in the full file
   i = 0
-  window = signal.hamming(fragmentSize)
   # go through each chunk
   while ( i < amtFragments ):
-    j = start
-    rawData = []
+    j = start # j tracks the offset in the full file
+    rawData = [] # Holder for the data before its processed
     # go through each sample in chunk
     while ( j <= end ):
       # normalize sample on [-1, 1)
@@ -61,10 +61,10 @@ def process( filepath, rec_id, chunkSize ):
     # add to list of fragments
     fragments.append( fragment )
 
-    # increment!
+    # increment! to create overlapping fragments
     start += fragmentSize/2 # Both start and end now increment by
     end += fragmentSize/2   # only half a fragment length at a time
-    i += 1
+    i += 1                  
 
   return fragments
 

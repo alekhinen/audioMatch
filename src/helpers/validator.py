@@ -49,7 +49,8 @@ def isValid( pArgs ):
     isValid = False
 
   if ( not isValid ):
-    print 'ERROR: flagged a dir that\'s not a dir OR flagged a file that\'s not a file'
+    print ('ERROR: flagged a dir that\'s not a dir '
+           'OR flagged a file that\'s not a file')
     sys.exit(4)
 
   # if directories exist, validate all the files in each directories
@@ -72,8 +73,12 @@ def isValid( pArgs ):
 
   return isValid
 
-
-
+# validateDir()
+# @param: dirPath - directory path (string)
+# @description: validates that the path is a directory
+# @returns: boolean
+# @authors: Nick Alekhine, Charles Perrone
+# @version: 11-11-2014
 def validateDir( dirPath ):
   result = False
 
@@ -87,6 +92,12 @@ def validateDir( dirPath ):
   return result
 
 
+# validateFile()
+# @param: f - file path (string)
+# @description: validates that the path is a file
+# @returns: boolean
+# @authors: Nick Alekhine, Charles Perrone
+# @version: 11-11-2014
 def validateFile( f ):
   isValid = False
 
@@ -125,6 +136,12 @@ def validateFile( f ):
     isValid = isValid and 'layer III' in fMeta
     # check if it is 'v1'
     isValid = isValid and 'v1' in fMeta
+
+  # if file is a .ogg
+  elif f.endswith('.ogg'):
+    fMeta = os.popen('file %s' % f ).read()
+    # check if meta data contains 'Ogg' and 'Vorbis'
+    isValid = 'Ogg' and 'Vorbis' in fMeta
 
   return isValid
 

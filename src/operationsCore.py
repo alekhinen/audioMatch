@@ -8,6 +8,7 @@ import helpers.comparator  as comparator
 import helpers.processor   as processor
 from shutil import rmtree
 from os     import makedirs
+from os     import chmod
 import os.path
 
 class OperationsCore:
@@ -20,6 +21,7 @@ class OperationsCore:
   dirUsers = './'
   dirAds = './'
   # directory of temporary audio files
+  tmpDir = './tmp/'
   tmpDirUsers = './tmp/users/'
   tmpDirAds = './tmp/ads/'
   # modes for audio files (0 == file, 1 == directory)
@@ -187,11 +189,17 @@ class OperationsCore:
   # @author: Nick Alekhine, Charles Perrone
   # @version: 11-11-2014
   def createTmpDirectories( self ):
+    # set read/write/execute  permissions on current directory
+    chmod( './', 0777 )
     # remove tmp directories if they exist.
     self.removeTmpDirectories()
     # create the tmp directories
     makedirs( self.tmpDirUsers )
     makedirs( self.tmpDirAds )
+    # set read/write/execute on tmp directories
+    chmod( self.tmpDir, 0777 )
+    chmod( self.tmpDirUsers, 0777 )
+    chmod( self.tmpDirAds, 0777 )
 
   # removeTmpDirectories()
   # @description: removes tmp directories
@@ -204,8 +212,8 @@ class OperationsCore:
       rmtree( self.tmpDirUsers )
     if ( os.path.exists( self.tmpDirAds ) ):
       rmtree( self.tmpDirAds )
-    if ( os.path.exists( './tmp' ) ):
-      rmtree( './tmp' )
+    if ( os.path.exists( self.tmpDir ) ):
+      rmtree( self.tmpDir )
 
   # ------------------------
   # -  DATABASE ADDITIONS  -

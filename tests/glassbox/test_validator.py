@@ -23,12 +23,14 @@ class TestValidator:
   args2 = None
   args3 = None
   args4 = None
+  args5 = None
 
   def reset( self ):
     self.args1 = ['i', 'am', 'dumb', 'lol']
     self.args2 = ['this', 'is', 'not', 'legit']
     self.args3 = [0, '../assets/D1/rimsky.mp3', 1, '../assets/D2']
     self.args4 = [1, '../assets/D1', 1, '../assets/D2']
+    self.args5 = [0, '../assets/D1_Ogg/z07.ogg', 1, '../assets/D1_Ogg/']
 
   # System Exit 1
   @raises( SystemExit )
@@ -50,3 +52,4 @@ class TestValidator:
   def testIsValidFileAndFolder( self ):
     self.reset()
     assert_equals( validator.isValid(self.args3), True )
+    assert_equals( validator.isValid(self.args5), True )

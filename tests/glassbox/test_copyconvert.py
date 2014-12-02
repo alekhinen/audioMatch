@@ -28,10 +28,12 @@ class TestCopyConvert:
   f1 = '../assets/D1/bad0616.wav'
   f2 = '../assets/D2/curieuse.wav'
   f3 = '../assets/D1/rimsky.mp3'
+  f4 = '../assets/D1_Ogg/z07.ogg'
 
   # destination directories
   d1 = '../assets/tmp/D1/'
   d2 = '../assets/tmp/D2/'
+  baseDir = '../assets/tmp/'
 
   # initialize destination directories
   def reset( self ):
@@ -45,6 +47,8 @@ class TestCopyConvert:
       rmtree(self.d1)
     if (os.path.exists(self.d2)):
       rmtree(self.d2)
+    if (os.path.exists(self.baseDir)):
+      rmtree(self.baseDir)
 
   # testCopyConvert()
   # @description: tests the copyConvert() method from copyconvert
@@ -60,6 +64,9 @@ class TestCopyConvert:
     # conversion 3
     copyconvert.copyConvert(self.f3, self.d2)
     assert_equal(os.path.exists('../assets/tmp/D2/rimsky.mp3'), True)
-    
+    # conversion 4
+    copyconvert.copyConvert(self.f4, self.d1)
+    assert_equals(os.path.exists('../assets/tmp/D1/z07.ogg'), True)    
+
     self.implode()
 
