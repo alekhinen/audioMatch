@@ -247,7 +247,8 @@ class OperationsCore:
         rec = Recording( f, os.path.join( self.tmpDirUsers, f) )
         rec_id = rec.hash()
         # process audio recording data
-        fragments = processor.process( os.path.join( self.tmpDirUsers, f), rec_id, self.fragmentSize )
+	ff = os.path.join( self.tmpDirUsers, f)
+        fragments = processor.process( ff, rec_id, self.fragmentSize )
         # add all fragments to the recording
         for fragment in fragments:
           rec.appendFragment( fragment )
@@ -263,13 +264,14 @@ class OperationsCore:
             s_rec_id = sFrag.recording_id
             sRec = self.recDB.getRecording( s_rec_id )
             if ( not sRec in matchedRecordings ):
-              sFragList = sRec.fragments[int(sFrag.timeOffset * 16):]
-              curFragList = rec.fragments[int(fragment.timeOffset * 16):]
+              sFList = sRec.fragments[int(sFrag.timeOffset * 16):]
+              curFList = rec.fragments[int(fragment.timeOffset * 16):]
 
-              isSimilar = comparator.compare( curFragList, sFragList, self.threshold )
+              isSimilar = comparator.compare( curFList, sFList, self.threshold )
             
               if ( isSimilar ):
-                print 'MATCH', rec.filename, sRec.filename, fragment.timeOffset, sFrag.timeOffset
+		fto = fragment.timeOffset
+		sto = sFrag.timeOffset
+                print 'MATCH', rec.filename, sRec.filename, fto, sto
                 matchedRecordings.append(sRec)
-
 
